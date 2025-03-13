@@ -12,28 +12,22 @@ import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
-// import Logo from "@/assets/svgs/Logo";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import {
-//     loginUser,
-//     reCaptchaTokenVerification
-// } from "@/services/AuthService";
+import {
+    loginUser
+} from "@/services/AuthService";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { useState } from "react";
-// import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
     const form = useForm({
         resolver: zodResolver(loginSchema),
     });
 
-    // const searchParams = useSearchParams();
-    // const redirect = searchParams.get("redirectPath")
-    // const router = useRouter();
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
-
-
 
     const {
         formState: { isSubmitting },
@@ -42,26 +36,22 @@ export const LoginForm = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         console.log(data);
-        // try {
-        //     const res = await loginUser(data);
-        //     console.log(res);
-        //     if (res?.success) {
-        //         toast.success(res?.message);
-        //         if(redirect){
-        //             router.push(redirect);
-        //         }else{
-        //             router.push("/");
-        //         }
-        //     } else {
-        //         toast.error(res?.message);
-        //     }
-        // } catch (err: any) {
-        //     console.error(err);
-        // }
+        try {
+            const res = await loginUser(data);
+            console.log(res);
+            if (res?.success) {
+                toast.success(res?.message);
+                router.push("/");
+            } else {
+                toast.error(res?.message);
+            }
+        } catch (err: any) {
+            console.error(err);
+        }
     };
 
     return (
-        <div className="border-2 border-gray-100 rounded-xl flex-grow max-w-md w-full p-5">
+        <div className="border-2 bg-white rounded-xl flex-grow max-w-md w-full p-5">
             <div className="flex items-center space-x-6 mb-4">
                 <div className="space-y-4 mx-auto text-center">
                     <h1 className="text-xl font-semibold">Login</h1>
