@@ -1,5 +1,5 @@
 "use client";
-import Logo from "@/assets/svgs/Logo";
+import Logo from "@/assets/svgs/logo.svg";
 import { Button } from "../ui/button";
 import { Heart, LogOut, ShoppingBag } from "lucide-react";
 import Link from "next/link";
@@ -25,7 +25,7 @@ export default function Navbar() {
     // console.log(user);
     const pathname = usePathname();
     const router = useRouter();
-    const user = null;
+    const user = true;
 
     const handlelogout = () => {
         logoutUser();
@@ -43,8 +43,8 @@ export default function Navbar() {
         <header className="border-b w-full">
             <div className="container flex justify-between items-center mx-auto h-16 px-3">
                 <Link href="/" className="text-2xl font-black flex items-center">
-                    <Logo />
-                    Next Mart
+                    {/* <Logo /> */}
+                    TutorLink
                 </Link>
                 <div className="max-w-md  flex-grow">
                     <input
