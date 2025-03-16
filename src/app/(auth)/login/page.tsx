@@ -8,9 +8,6 @@ const LoginPage = () => {
             <div className="w-full max-w-sm md:max-w-3xl">
                 <LoginForm />
             </div>
-            <div>
-                <h1>Hello world</h1>
-            </div>
         </div>
         // <div className='h-screen w-screen flex justify-center items-center'>
         //     <LoginForm />
