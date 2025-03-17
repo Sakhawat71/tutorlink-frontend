@@ -4,14 +4,11 @@ import React from 'react';
 
 const LoginPage = () => {
     return (
-        <div className="bg-slate-200 flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
-            <div className="w-full max-w-sm md:max-w-3xl">
+        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-slate-200  p-6 md:p-10">
+            <div className="flex w-full max-w-sm flex-col gap-6">
                 <LoginForm />
             </div>
         </div>
-        // <div className='h-screen w-screen flex justify-center items-center'>
-        //     <LoginForm />
-        // </div>
     );
 };
 
