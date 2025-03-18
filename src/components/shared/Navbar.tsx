@@ -103,7 +103,7 @@ export default function Navbar() {
                             </Link>
                         )}
 
-                        <Link href="/tutors">
+                        <Link href="/about">
                             <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
                                 About Us
                             </Button>
