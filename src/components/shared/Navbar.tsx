@@ -29,7 +29,7 @@ export default function Navbar() {
 
     //   const userRole = session?.user?.role || null;
     const session = true;
-    const userRole = "admin";
+    const userRole = "student";
 
     if (status === "loading") {
         return <div className="text-center py-4">Loading...</div>;
@@ -38,65 +38,91 @@ export default function Navbar() {
     return (
         <header className="border-b w-full">
             <div className="container mx-auto h-16 px-4 flex justify-between items-center">
-                {/* Logo */}
+                
+                
                 <Link href="/" className="text-2xl font-black flex items-center">
                     TutorLink
                 </Link>
 
-                {/* Hamburger Menu Button (Visible on Mobile) */}
-                <Button
-                    variant="ghost"
-                    className="md:hidden p-0" // Hidden on medium screens and up
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                >
-                    <Menu className="h-6 w-6" />
-                </Button>
 
-                {/* Navigation */}
-                <nav
-                    className={`${isMobileMenuOpen ? "flex" : "hidden"
-                        } md:flex flex-col md:flex-row gap-4 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0 z-10 border-b md:border-0`}
-                >
-                    <Link href="/">
-                        <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
-                            Home
-                        </Button>
-                    </Link>
-                    <Link href="/tutors">
-                        <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
-                            Browse Tutors
-                        </Button>
-                    </Link>
 
-                    {/* Role-based Links */}
-                    {session && userRole === "student" && (
-                        <Link href="/student/bookings">
+                <div className="flex items-center">
+                    <Button
+                        variant="ghost"
+                        className="md:hidden p-0" // Hidden on medium screens and up
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    >
+                        <Menu className="h-6 w-6" />
+                    </Button>
+
+                    {/* Navigation */}
+                    <nav
+                        className={`${isMobileMenuOpen ? "flex" : "hidden"
+                            } md:flex flex-col md:flex-row gap-4 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0 z-10 border-b md:border-0`}
+                    >
+                        <Link href="/">
                             <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
-                                My Bookings
+                                Home
                             </Button>
                         </Link>
-                    )}
-                    {session && userRole === "tutor" && (
-                        <>
-                            <Link href="/tutor/profile">
-                                <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
-                                    My Profile
-                                </Button>
-                            </Link>
-                            <Link href="/tutor/availability">
-                                <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
-                                    Availability
-                                </Button>
-                            </Link>
-                        </>
-                    )}
-                    {session && userRole === "admin" && (
-                        <Link href="/admin/tutors">
+
+                        <Link href="/tutors">
                             <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
-                                Manage Tutors
+                                Browse Tutors
                             </Button>
                         </Link>
-                    )}
+
+
+                        {/* Role-based Links */}
+                        {session && userRole === "student" && (
+                            <Link href="/student/bookings">
+                                <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
+                                    My Bookings
+                                </Button>
+                            </Link>
+                        )}
+                        {session && userRole === "tutor" && (
+                            <>
+                                <Link href="/tutor/profile">
+                                    <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
+                                        My Profile
+                                    </Button>
+                                </Link>
+                                <Link href="/tutor/availability">
+                                    <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
+                                        Availability
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
+                        {session && userRole === "admin" && (
+                            <Link href="/admin/tutors">
+                                <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
+                                    Manage Tutors
+                                </Button>
+                            </Link>
+                        )}
+
+                        <Link href="/tutors">
+                            <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
+                                About Us
+                            </Button>
+                        </Link>
+
+                        <Link href="/faq">
+                            <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
+                                FAQ
+                            </Button>
+                        </Link>
+
+                        <Link href="/tutors">
+                            <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
+                                Blog
+                            </Button>
+                        </Link>
+
+
+                    </nav>
 
                     {/* User Authentication Section */}
                     {session ? (
@@ -142,7 +168,8 @@ export default function Navbar() {
                             </Button>
                         </Link>
                     )}
-                </nav>
+                </div>
+
             </div>
         </header>
     );
