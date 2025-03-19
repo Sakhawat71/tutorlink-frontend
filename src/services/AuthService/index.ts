@@ -66,4 +66,4 @@ export const logoutUser = async () => {
     } catch (err: any) {
         return Error(err);
     }
-}
+};
