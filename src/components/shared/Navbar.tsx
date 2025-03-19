@@ -17,7 +17,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Navbar() {
-    const pathname = usePathname();
+    // const pathname = usePathname();
     const router = useRouter();
     //   const { data: session, status } = useSession();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
