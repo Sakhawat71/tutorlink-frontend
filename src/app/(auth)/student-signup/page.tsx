@@ -1,9 +1,10 @@
+import RegisterComponent from '@/components/modules/auth/registration';
 import React from 'react';
 
 const SignUpStudentPage = () => {
     return (
         <div>
-            Sign Up Student Page
+            <RegisterComponent />
         </div>
     );
 };

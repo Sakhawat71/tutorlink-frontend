@@ -15,6 +15,7 @@ import { logoutUser } from "@/services/AuthService";
 import { usePathname, useRouter } from "next/navigation";
 // import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 export default function Navbar() {
     // const pathname = usePathname();
@@ -150,7 +151,8 @@ export default function Navbar() {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                     className="text-red-600 font-bold cursor-pointer"
-                                    onClick={handleLogout}
+                                    // onClick={handleLogout}
+                                    onClick={()=> signOut()}
                                 >
                                     <LogOut className="mr-2 h-4 w-4" />
                                     <span>Logout</span>
