@@ -54,14 +54,14 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
             // }
 
 
-            const res = await loginUser(data);
-            console.log(res);
-            if (res?.success) {
-                toast.success(res?.message);
-                router.push("/");
-            } else {
-                toast.error(res?.message);
-            }
+            // const res = await loginUser(data);
+            // console.log(res);
+            // if (res?.success) {
+            //     toast.success(res?.message);
+            //     router.push("/");
+            // } else {
+            //     toast.error(res?.message);
+            // }
         } catch (err: any) {
             console.error(err);
             toast.error("An error occurred during login");
