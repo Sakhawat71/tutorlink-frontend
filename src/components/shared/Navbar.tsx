@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "../ui/button";
-import { LogOut, Menu } from "lucide-react"; // Added Menu icon for hamburger
+import { LogOut, Menu } from "lucide-react";
 import Link from "next/link";
 import {
     DropdownMenu,
@@ -11,30 +11,16 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { logoutUser } from "@/services/AuthService";
-import { usePathname, useRouter } from "next/navigation";
-// import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 
 export default function Navbar() {
-    // const pathname = usePathname();
-    const router = useRouter();
-    //   const { data: session, status } = useSession();
+
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const handleLogout = () => {
-        logoutUser();
-        router.push("/login");
-    };
-
-    //   const userRole = session?.user?.role || null;
     const session = true;
     const userRole = "student";
 
-    if (status === "loading") {
-        return <div className="text-center py-4">Loading...</div>;
-    }
 
     return (
         <header className="border-b w-full">

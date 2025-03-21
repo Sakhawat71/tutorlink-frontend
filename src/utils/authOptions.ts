@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { jwtDecode } from "jwt-decode";
 
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
@@ -29,19 +30,41 @@ export const authOptions: NextAuthOptions = {
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" }
                 })
-                const user = await res.json()
+                const user = await res.json();
+                const decoded = jwtDecode(user.data) as { id: string; name?: string; email?: string; role?: string; };
 
-                // If no error and we have user data, return it
                 if (res.ok && user) {
-                    return user
+                    return {
+                        id: decoded.id,
+                        name: decoded.name || null,
+                        email: decoded.email || null,
+                        role: decoded.role || null,
+                    };
                 }
-                // Return null if user data could not be retrieved
-                return null
+                return null;
             }
         })
 
 
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.role = user.role;
+                // console.log("user and token : ", user,token);
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            // session.user.id = token.id;
+            // session.user.email = token.email;
+            // session.user.name = token.name;
+            // session.user.role = token.role;// Make backend JWT available
+            console.log(session, token,);
+            return session;
+        },
+    },
     pages: {
         signIn: '/login'
     },

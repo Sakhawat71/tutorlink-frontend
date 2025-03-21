@@ -45,7 +45,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                 password: data.password,
                 redirect: false, // Handle redirect manually
             });
-            console.log(result);
+            // console.log(result);
             if (result?.error) {
                 toast.error("Invalid credentials");
             } else {
