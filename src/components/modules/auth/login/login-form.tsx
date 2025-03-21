@@ -40,18 +40,18 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         try {
             // Attempt credentials login with backend via NextAuth
-            // const result = await signIn("credentials", {
-            //     email: data.email,
-            //     password: data.password,
-            //     redirect: false, // Handle redirect manually
-            // });
-
-            // if (result?.error) {
-            //     toast.error("Invalid credentials");
-            // } else {
-            //     toast.success("Login successful");
-            //     router.push("/dashboard"); // Redirect to dashboard
-            // }
+            const result = await signIn("credentials", {
+                email: data.email,
+                password: data.password,
+                redirect: false, // Handle redirect manually
+            });
+            console.log(result);
+            if (result?.error) {
+                toast.error("Invalid credentials");
+            } else {
+                toast.success("Login successful");
+                router.push("/"); // Redirect to dashboard
+            }
 
 
             // const res = await loginUser(data);
