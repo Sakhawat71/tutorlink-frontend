@@ -3,6 +3,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
+import { ICustomSession, IDecoded } from "@/types";
 
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
@@ -47,12 +48,7 @@ export const authOptions: NextAuthOptions = {
                     headers: { "Content-Type": "application/json" }
                 })
                 const user = await res.json();
-                const decoded = jwtDecode(user.data) as {
-                    id: string;
-                    name?: string;
-                    email?: string;
-                    role?: string;
-                };
+                const decoded = jwtDecode(user.data) as IDecoded;
 
                 // Ensure user data exists before decoding
                 if (!user?.data) {

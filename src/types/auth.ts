@@ -1,24 +1,38 @@
+// types/next-auth.d.ts
 import { DefaultSession, DefaultUser } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import { JWT as DefaultJWT } from "next-auth/jwt";
 
 
-export interface IAuthUser extends DefaultUser {
+export interface IDecoded {
     id: string;
-    role: string;
-    authType: "credentials" | "social";
     name?: string;
     email?: string;
-};
-
-
-
-export interface ICustomSession extends DefaultSession {
-    user: IAuthUser;
+    role?: string;
 }
 
-
-export interface ICustomJWT extends JWT {
+// Extend the User type
+export interface ICustomUser extends DefaultUser {
     id: string;
-    role: string;
-    authType: "credentials" | "social";
+    name?: string | null;
+    email?: string | null;
+    role?: string | null; // "student", "tutor", "admin"
+    authType?: "credentials" | "social" | null;
+}
+
+// Extend the JWT type
+export interface ICustomJWT extends DefaultJWT {
+    id?: string;
+    role?: string | null;
+    authType?: "credentials" | "social" | null;
+}
+
+// Extend the Session type
+export interface ICustomSession extends DefaultSession {
+    user: {
+        id: string;
+        name?: string | null;
+        email?: string | null;
+        role?: string | null;
+        authType?: "credentials" | "social" | null;
+    };
 }
