@@ -12,13 +12,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const session = true;
+    const session = useSession()
+    console.log(session);
+
+    // const session = true;
     const userRole = "student";
 
 

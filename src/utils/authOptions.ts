@@ -31,7 +31,17 @@ export const authOptions: NextAuthOptions = {
                     headers: { "Content-Type": "application/json" }
                 })
                 const user = await res.json();
-                const decoded = jwtDecode(user.data) as { id: string; name?: string; email?: string; role?: string; };
+                const decoded = jwtDecode(user.data) as {
+                    id: string;
+                    name?: string;
+                    email?: string;
+                    role?: string;
+                };
+
+                // Ensure user data exists before decoding
+                if (!user?.data) {
+                    throw new Error("Invalid token");
+                }
 
                 if (res.ok && user) {
                     return {
@@ -52,16 +62,17 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 token.id = user.id;
                 token.role = user.role;
-                // console.log("user and token : ", user,token);
             }
             return token;
         },
-        async session({ session, token }) {
-            // session.user.id = token.id;
-            // session.user.email = token.email;
-            // session.user.name = token.name;
-            // session.user.role = token.role;// Make backend JWT available
-            console.log(session, token,);
+        async session({ session, token}) {
+            if (session.user) {
+                session.user.id = token.id as string;
+                session.user.email = token.email as string;
+                session.user.name = token.name as string;
+                session.user.role = token.role as string;
+            }
+            // console.log(session);
             return session;
         },
     },
