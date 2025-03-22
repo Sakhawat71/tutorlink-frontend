@@ -13,7 +13,7 @@ export const authOptions: NextAuthOptions = {
                     ...profile,
                     id: profile.sub,
                     role: profile.role ?? "student",
-                    authType : 'social'
+                    authType: 'social'
                 }
             },
             clientId: process.env.GITHUB_ID as string,
@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
                     ...profile,
                     id: profile.sub,
                     role: profile.role ?? "student",
-                    authType : 'social'
+                    authType: 'social'
                 }
             },
             clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -36,10 +36,10 @@ export const authOptions: NextAuthOptions = {
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
-                username: { label: "Username", type: "text", placeholder: "jsmith" },
+                email: { label: "Username", type: "text", placeholder: "User Name" },
                 password: { label: "Password", type: "password" }
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
 
                 const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
                     method: 'POST',
@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
                         name: decoded.name || null,
                         email: decoded.email || null,
                         role: decoded.role || null,
-                        authType : 'credentials'
+                        authType: 'credentials'
                     };
                 }
                 return null;
@@ -89,7 +89,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.email = token.email as string;
                 session.user.name = token.name as string;
                 session.user.role = token.role as string;
-                session.user.authType = token.authType as string; 
+                session.user.authType = token.authType as string;
             }
             // console.log(session);
             return session;
