@@ -36,3 +36,28 @@ export interface ICustomSession extends DefaultSession {
         authType?: "credentials" | "social" | null;
     };
 }
+
+
+declare module "next-auth" {
+    interface User {
+        id: string;
+        role: string | null;
+        authType: string | null;
+    }
+
+    interface Session {
+        user: {
+            id: string;
+            name: string | null;
+            email: string | null;
+            role?: string | null;
+            authType: string | null;
+        };
+    }
+
+    interface JWT {
+        id: string;
+        role?: string | null;
+        authType: string | null;
+    }
+};

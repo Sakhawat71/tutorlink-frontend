@@ -13,23 +13,26 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { Skeleton } from "../ui/skeleton";
 
 export default function Navbar() {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const session = useSession()
-    console.log(session);
+    const { data, status } = useSession();
 
-    // const session = true;
-    const userRole = "student";
+    const userRole = data?.user?.role || null;
 
+
+    if (status === "loading") {
+        return <Skeleton className="h-12 w-12 rounded-full" />
+    }
 
     return (
         <header className="border-b w-full">
             <div className="container mx-auto h-16 px-4 flex justify-between items-center">
-                
-                
+
+
                 <Link href="/" className="text-2xl font-black flex items-center">
                     TutorLink
                 </Link>
@@ -62,16 +65,14 @@ export default function Navbar() {
                             </Button>
                         </Link>
 
-
-                        {/* Role-based Links */}
-                        {session && userRole === "student" && (
+                        {/* {userRole === "student" && (
                             <Link href="/student/bookings">
                                 <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
                                     My Bookings
                                 </Button>
                             </Link>
                         )}
-                        {session && userRole === "tutor" && (
+                        {userRole === "tutor" && (
                             <>
                                 <Link href="/tutor/profile">
                                     <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
@@ -85,13 +86,13 @@ export default function Navbar() {
                                 </Link>
                             </>
                         )}
-                        {session && userRole === "admin" && (
+                        {userRole === "admin" && (
                             <Link href="/admin/tutors">
                                 <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
                                     Manage Tutors
                                 </Button>
                             </Link>
-                        )}
+                        )} */}
 
                         <Link href="/about">
                             <Button variant="link" onClick={() => setIsMobileMenuOpen(false)}>
@@ -115,7 +116,7 @@ export default function Navbar() {
                     </nav>
 
                     {/* User Authentication Section */}
-                    {session ? (
+                    {data ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger>
                                 <Avatar>
@@ -126,22 +127,16 @@ export default function Navbar() {
                             <DropdownMenuContent>
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    <Link href="/profile">Profile</Link>
-                                </DropdownMenuItem>
+
                                 <DropdownMenuItem>
                                     <Link href={`/${userRole}/dashboard`}>Dashboard</Link>
                                 </DropdownMenuItem>
-                                {userRole === "tutor" && (
-                                    <DropdownMenuItem>
-                                        <Link href="/tutor/availability">Availability</Link>
-                                    </DropdownMenuItem>
-                                )}
+
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                     className="text-red-600 font-bold cursor-pointer"
                                     // onClick={handleLogout}
-                                    onClick={()=> signOut()}
+                                    onClick={() => signOut()}
                                 >
                                     <LogOut className="mr-2 h-4 w-4" />
                                     <span>Logout</span>

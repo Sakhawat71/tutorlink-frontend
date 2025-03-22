@@ -20,13 +20,13 @@ export default function RegisterComponent() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Handle form input changes
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     // Handle form submission
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
         setIsSubmitting(true);
 

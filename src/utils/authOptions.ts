@@ -3,7 +3,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
-import { ICustomSession, IDecoded } from "@/types";
+import { IDecoded } from "@/types";
 
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
