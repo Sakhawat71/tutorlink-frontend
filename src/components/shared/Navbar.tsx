@@ -143,10 +143,10 @@ export default function Navbar() {
                                 <DropdownMenuSeparator className="my-1" />
                                 <DropdownMenuItem asChild>
                                     <Link
-                                        href={`/${userRole}/dashboard`}
+                                        href={`/dashboard/${userRole}`}
                                         className={cn(
                                             "flex items-center px-3 py-2 text-gray-900 hover:text-indigo-600 rounded-md cursor-pointer transition-colors",
-                                            pathname === `/${userRole}/dashboard` && "font-bold text-indigo-600"
+                                            pathname === `/dashboard/${userRole}` && "font-bold text-indigo-600"
                                         )}
                                     >
                                         Dashboard
