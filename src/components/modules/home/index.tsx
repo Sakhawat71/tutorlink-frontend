@@ -31,12 +31,12 @@ export default function HomeComponents() {
                     </div>
                     {/* CTAs */}
                     <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/register?role=student">
+                        <Link href="/student-signup">
                             <Button className="rounded-full px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-white text-indigo-600 hover:bg-gray-100">
                                 Sign Up as a Student
                             </Button>
                         </Link>
-                        <Link href="/register?role=tutor">
+                        <Link href="/tutor-signup">
                             <Button className="rounded-full px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-indigo-700 hover:bg-indigo-800">
                                 Register as a Tutor
                             </Button>
