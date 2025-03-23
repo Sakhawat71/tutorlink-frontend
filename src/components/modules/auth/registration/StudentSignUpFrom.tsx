@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { registerUser } from "@/services/AuthService";
 
 
 export const StudentSignupForm = () => {
@@ -47,26 +48,59 @@ export const StudentSignupForm = () => {
 
     // Form submission handler
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
+        const registerData = { ...data, role: "student" };
+        const toastId = toast.loading("Signing up...");
+
         try {
-            // Attempt credentials signup with NextAuth
+            // Register student in the database
+            const res = await registerUser(registerData);
+
+            if (!res?.success) {
+                throw new Error(res.message || "Signup failed");
+            }
+
+            toast.success(`${res.message}! Logging you in...`, { id: toastId });
+
+            // Login after successful registration
             const result = await signIn("credentials", {
                 email: data.email,
                 password: data.password,
-                name: data.name,
-                role : 'student',
                 redirect: false,
             });
 
             if (result?.error) {
-                toast.error(result.error || "Signup failed");
-            } else {
-                toast.success("Signup successful! Logging you in...");
-                router.push("/dashboard"); // Redirect to single dashboard page
+                throw new Error("Invalid credentials");
             }
-        } catch (err: any) {
-            console.error(err);
-            toast.error("An error occurred during signup");
+
+            toast.success("Login successful 🎉");
+            router.push("/"); // Redirect to dashboard/homepage
+        } catch (error) {
+            console.error("Signup/Login error:", error);
+            toast.error(error?.message as string || "Something went wrong!", { id: toastId });
         }
+
+
+
+        // try {
+        //     const result = await signIn("credentials", {
+        //         email: data.email,
+        //         password: data.password,
+        //         name: data.name,
+        //         role : 'student',
+        //         redirect: false,
+        //     });
+
+        //     if (result?.error) {
+        //         toast.error(result.error || "Signup failed");
+        //     } else {
+        //         toast.success("Signup successful! Logging you in...");
+        //         router.push("/dashboard"); // Redirect to single dashboard page
+        //     }
+        // } catch (err: any) {
+        //     console.error(err);
+        //     toast.error("An error occurred during signup");
+        // }
     };
 
     // Social login handler
@@ -135,6 +169,7 @@ export const StudentSignupForm = () => {
                         {/* Credentials Form */}
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6">
+
                                 <FormField
                                     control={form.control}
                                     name="name"
@@ -154,6 +189,7 @@ export const StudentSignupForm = () => {
                                         </FormItem>
                                     )}
                                 />
+
                                 <FormField
                                     control={form.control}
                                     name="email"
@@ -173,6 +209,7 @@ export const StudentSignupForm = () => {
                                         </FormItem>
                                     )}
                                 />
+
                                 <FormField
                                     control={form.control}
                                     name="password"
@@ -201,6 +238,7 @@ export const StudentSignupForm = () => {
                                         </FormItem>
                                     )}
                                 />
+
                                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                                     {isSubmitting ? "Signing up..." : `Sign Up as Student`}
                                 </Button>
