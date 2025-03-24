@@ -1,6 +1,8 @@
-
 "use client";
-import { AppSidebar } from "@/components/modules/dashboard/Tutor/app-sidebar";
+
+import { AdminAppSidebar } from "@/components/modules/dashboard/Admin/app-sidebar";
+import { StudentAppSidebar } from "@/components/modules/dashboard/Student/app-sidebar";
+import { TutorAppSidebar } from "@/components/modules/dashboard/Tutor/app-sidebar";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -30,10 +32,24 @@ export default function TutorDashboardPage(
     if (status === "loading") {
         return <div className="flex items-center justify-center h-screen">Loading...</div>;
     }
-    if (!session || session.user.role !== "tutor") {
+    if (!session) {
         router.push("/login");
         return null;
     }
+
+    let sidebar = null;
+
+    if (session.user.role === "student") {
+        sidebar = <StudentAppSidebar />
+    }
+    if (session.user.role === "tutor") {
+        sidebar = <TutorAppSidebar />
+    }
+    if (session.user.role === "admin") {
+        sidebar = <AdminAppSidebar />
+    }
+
+    console.log(session);
 
     return (
         <SidebarProvider
@@ -43,7 +59,8 @@ export default function TutorDashboardPage(
                 } as React.CSSProperties
             }
         >
-            <AppSidebar />
+            {sidebar}
+            {/* <TutorAppSidebar /> */}
             <SidebarInset>
                 <header className="flex h-16 shrink-0 items-center gap-2 px-4 bg-white border-b">
                     <SidebarTrigger className="-ml-1 text-gray-600 hover:text-indigo-600" />
@@ -51,7 +68,7 @@ export default function TutorDashboardPage(
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="/dashboard/tutor">Tutor Dashboard</BreadcrumbLink>
+                                <BreadcrumbLink href={`/dashboard/${session.user.role}`}>{session.user.role} Dashboard</BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>

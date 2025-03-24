@@ -13,7 +13,7 @@ import {
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function TutorAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { data: session } = useSession();
     const tutorName = session?.user?.name || "Tutor";
 
