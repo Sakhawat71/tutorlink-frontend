@@ -35,7 +35,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
         {
             title: "Bookings",
-            url: "/tutor/bookings",
+            url: "/dashboard/tutor/bookings",
             icon: <Clock className="h-4 w-4" />,
         },
     ];
