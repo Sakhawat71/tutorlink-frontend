@@ -20,7 +20,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const navItems = [
         {
             title: "Dashboard",
-            url: "/tutor/dashboard",
+            url: "/dashboard/tutor",
             icon: <User className="h-4 w-4" />,
         },
         {

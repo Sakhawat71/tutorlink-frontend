@@ -51,7 +51,7 @@ export default function TutorDashboardPage() {
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="/tutor/dashboard">Tutor Dashboard</BreadcrumbLink>
+                                <BreadcrumbLink href="/dashboard/tutor">Tutor Dashboard</BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
