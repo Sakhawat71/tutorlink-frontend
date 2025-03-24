@@ -43,11 +43,12 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                 redirect: false,
             });
             // console.log(result);
+            const toastId = toast.loading("Logging in...");
             if (result?.error) {
-                toast.error("Invalid credentials");
+                toast.error("Invalid credentials", { id: toastId });
             } else {
-                toast.success("Login successful");
-                router.push("/"); // Redirect to dashboard
+                toast.success("Login successful", { id: toastId });
+                router.push("/");
             }
 
         } catch (err: any) {
