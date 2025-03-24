@@ -94,7 +94,7 @@ export const StudentSignupForm = () => {
                 </CardHeader>
                 <CardContent>
                     <div className="mb-6">
-                        <Tabs value="student" className="w-full">
+                        <Tabs value="tutor" className="w-full">
                             <TabsList className="grid w-full grid-cols-2">
                                 <TabsTrigger value="student">Student</TabsTrigger>
                                 <TabsTrigger value="tutor" asChild>

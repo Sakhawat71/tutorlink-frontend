@@ -86,23 +86,30 @@ export const TutorSignupForm = () => {
             <Card>
                 <CardHeader className="text-center">
                     <CardTitle className="text-xl">
-                        Sign Up as a tutor
+                        Sign Up as a Tutor
                     </CardTitle>
                     <CardDescription>
                         Join TutorLink with email
                     </CardDescription>
                 </CardHeader>
+
+                {/* <CardDescription className="text-center">
+                    -- OR --
+                </CardDescription> */}
+
                 <CardContent>
+                    <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-lg -z-10"></div>
                     <div className="mb-6">
-                        <Tabs value="tutor" className="w-full">
+                        <Tabs value="student" className="w-full">
                             <TabsList className="grid w-full grid-cols-2">
-                                <TabsTrigger value="tutor">tutor</TabsTrigger>
-                                <TabsTrigger value="tutor" asChild>
-                                    <Link href="/tutor-signup">Tutor</Link>
+                                <TabsTrigger value="student" asChild>
+                                    <Link href="/student-signup">Student</Link>
                                 </TabsTrigger>
+                                <TabsTrigger value="tutor">Tutor</TabsTrigger>
                             </TabsList>
                         </Tabs>
                     </div>
+
                     <div className="grid gap-6">
                         {/* Credentials Form */}
                         <Form {...form}>
@@ -117,7 +124,7 @@ export const TutorSignupForm = () => {
                                                 <Input
                                                     id="name"
                                                     type="text"
-                                                    placeholder="John Doe"
+                                                    placeholder="Mr Tutor"
                                                     {...field}
                                                     required
                                                 />
@@ -185,13 +192,7 @@ export const TutorSignupForm = () => {
                                 Log in
                             </a>
                         </div>
-                        {/* Divider */}
-                        <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-                            <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                                Or with your Google or GitHub account
-                            </span>
-                        </div>
-                        
+
                     </div>
                 </CardContent>
             </Card>
