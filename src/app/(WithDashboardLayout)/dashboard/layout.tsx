@@ -49,7 +49,7 @@ export default function TutorDashboardPage(
         sidebar = <AdminAppSidebar />
     }
 
-    console.log(session);
+    // console.log(session);
 
     return (
         <SidebarProvider
@@ -60,7 +60,6 @@ export default function TutorDashboardPage(
             }
         >
             {sidebar}
-            {/* <TutorAppSidebar /> */}
             <SidebarInset>
                 <header className="flex h-16 shrink-0 items-center gap-2 px-4 bg-white border-b">
                     <SidebarTrigger className="-ml-1 text-gray-600 hover:text-indigo-600" />
