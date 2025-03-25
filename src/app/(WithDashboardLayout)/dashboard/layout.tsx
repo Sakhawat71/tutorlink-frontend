@@ -1,8 +1,5 @@
 "use client";
 
-import { AdminAppSidebar } from "@/components/modules/dashboard/Admin/app-sidebar";
-import { StudentAppSidebar } from "@/components/modules/dashboard/Student/app-sidebar";
-import { TutorAppSidebar } from "@/components/modules/dashboard/Tutor/app-sidebar";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -11,6 +8,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { AppSidebar } from "@/components/ui/core/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
     SidebarInset,
@@ -37,19 +35,6 @@ export default function TutorDashboardPage(
         return null;
     }
 
-    let sidebar = null;
-
-    if (session.user.role === "student") {
-        sidebar = <StudentAppSidebar />
-    }
-    if (session.user.role === "tutor") {
-        sidebar = <TutorAppSidebar />
-    }
-    if (session.user.role === "admin") {
-        sidebar = <AdminAppSidebar />
-    }
-
-    // console.log(session);
 
     return (
         <SidebarProvider
@@ -59,7 +44,7 @@ export default function TutorDashboardPage(
                 } as React.CSSProperties
             }
         >
-            {sidebar}
+            <AppSidebar />
             <SidebarInset>
                 <header className="flex h-16 shrink-0 items-center gap-2 px-4 bg-white border-b">
                     <SidebarTrigger className="-ml-1 text-gray-600 hover:text-indigo-600" />

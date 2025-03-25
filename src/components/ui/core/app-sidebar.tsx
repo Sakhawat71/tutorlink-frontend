@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { User, Calendar, Clock, LogOut } from "lucide-react";
+import { BookOpen, Calendar, User, LogOut, Users, Settings, Clock } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -13,11 +13,54 @@ import {
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 
-export function TutorAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { data: session } = useSession();
-    const tutorName = session?.user?.name || "Tutor";
+    const userName = session?.user?.name || "User";
+    const userRole = session?.user?.role || "User";
+    let navItems;
 
-    const navItems = [
+    const StudentNavItems = [
+        {
+            title: "Dashboard",
+            url: "/student/dashboard",
+            icon: <User className="h-4 w-4" />,
+        },
+        {
+            title: "Browse Tutors",
+            url: "/tutors",
+            icon: <BookOpen className="h-4 w-4" />,
+        },
+        {
+            title: "Bookings",
+            url: "/student/bookings",
+            icon: <Calendar className="h-4 w-4" />,
+        },
+        {
+            title: "Profile",
+            url: "/student/profile",
+            icon: <User className="h-4 w-4" />,
+        },
+    ];
+
+    const TutorNavItems = [
+        {
+            title: "Dashboard",
+            url: "/admin/dashboard",
+            icon: <Users className="h-4 w-4" />,
+        },
+        {
+            title: "Manage Tutors",
+            url: "/admin/tutors",
+            icon: <Users className="h-4 w-4" />,
+        },
+        {
+            title: "Settings",
+            url: "/admin/settings",
+            icon: <Settings className="h-4 w-4" />,
+        },
+    ];
+
+    const AdminNavItems = [
         {
             title: "Dashboard",
             url: "/dashboard/tutor",
@@ -40,19 +83,29 @@ export function TutorAppSidebar({ ...props }: React.ComponentProps<typeof Sideba
         },
     ];
 
+    if(userRole === "student"){
+        navItems = StudentNavItems;
+    }
+    if(userRole === "tutor"){
+        navItems = TutorNavItems;
+    }
+    if(userRole === "admin"){
+        navItems = AdminNavItems;
+    }
+
     return (
         <Sidebar variant="floating" {...props}>
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/tutor/dashboard">
+                            <Link href="/student/dashboard">
                                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
                                     <User className="size-4" />
                                 </div>
                                 <div className="flex flex-col gap-0.5 leading-none">
-                                    <span className="font-semibold text-gray-900">{tutorName}</span>
-                                    <span className="text-xs text-gray-500">Tutor</span>
+                                    <span className="font-semibold text-gray-900">{userName}</span>
+                                    <span className="text-xs text-gray-500">{userRole}</span>
                                 </div>
                             </Link>
                         </SidebarMenuButton>
@@ -62,7 +115,7 @@ export function TutorAppSidebar({ ...props }: React.ComponentProps<typeof Sideba
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarMenu className="gap-2">
-                        {navItems.map((item) => (
+                        {navItems?.map((item) => (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton asChild>
                                     <Link
