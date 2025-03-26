@@ -37,6 +37,7 @@ const SubjectManagement = () => {
         setLoading(true);
         try {
             // Simulate API call
+        
             console.log("Submitting:", data);
 
 
