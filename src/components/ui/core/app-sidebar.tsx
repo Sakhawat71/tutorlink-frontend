@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { BookOpen, Calendar, User, LogOut, Users, Settings, Clock } from "lucide-react";
+import { BookOpen, Calendar, User, LogOut, Users, Settings, Clock, LayoutDashboard } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -22,7 +22,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const StudentNavItems = [
         {
             title: "Dashboard",
-            url: "/student/dashboard",
+            url: "/dashboard/student",
             icon: <User className="h-4 w-4" />,
         },
         {
@@ -32,48 +32,53 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
         {
             title: "Bookings",
-            url: "/student/bookings",
+            url: "/dashboard/student/bookings",
             icon: <Calendar className="h-4 w-4" />,
         },
         {
             title: "Profile",
-            url: "/student/profile",
+            url: "/dashboard/student/profile",
             icon: <User className="h-4 w-4" />,
-        },
-    ];
-
-    const TutorNavItems = [
-        {
-            title: "Dashboard",
-            url: "/admin/dashboard",
-            icon: <Users className="h-4 w-4" />,
-        },
-        {
-            title: "Manage Tutors",
-            url: "/admin/tutors",
-            icon: <Users className="h-4 w-4" />,
-        },
-        {
-            title: "Settings",
-            url: "/admin/settings",
-            icon: <Settings className="h-4 w-4" />,
         },
     ];
 
     const AdminNavItems = [
         {
             title: "Dashboard",
+            url: "/dashboard/admin",
+            icon: <Users className="h-4 w-4" />,
+        },
+        {
+            title: "Manage Tutors",
+            url: "/dashboard/admin/tutors",
+            icon: <Users className="h-4 w-4" />,
+        },
+        {
+            title: "Settings",
+            url: "/dashboard/admin/settings",
+            icon: <Settings className="h-4 w-4" />,
+        },
+    ];
+
+    const TutorNavItems = [
+        {
+            title: "Dashboard",
             url: "/dashboard/tutor",
-            icon: <User className="h-4 w-4" />,
+            icon: <LayoutDashboard className="h-4 w-4" />,
         },
         {
             title: "Profile",
-            url: "/tutor/profile",
+            url: "/dashboard/tutor/profile",
             icon: <User className="h-4 w-4" />,
         },
         {
+            title: "Subject management",
+            url: "/dashboard/tutor/subject",
+            icon: <BookOpen className="h-4 w-4" />,
+        },
+        {
             title: "Availability",
-            url: "/tutor/availability",
+            url: "/dashboard/tutor/availability",
             icon: <Calendar className="h-4 w-4" />,
         },
         {
@@ -83,13 +88,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
     ];
 
-    if(userRole === "student"){
+    if (userRole === "student") {
         navItems = StudentNavItems;
     }
-    if(userRole === "tutor"){
+    if (userRole === "tutor") {
         navItems = TutorNavItems;
     }
-    if(userRole === "admin"){
+    if (userRole === "admin") {
         navItems = AdminNavItems;
     }
 
