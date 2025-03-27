@@ -19,9 +19,15 @@ import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { add30Minutes, tutorSchema } from "./zodValidate";
+import { useSession } from "next-auth/react";
+import { createSubject } from "@/services/SubjectService";
+import { ISubject } from "@/types";
 
 const SubjectManagement = () => {
     const [loading, setLoading] = useState(false);
+    const {data : tutorData} = useSession();
+    // console.log(data);
+
 
     const form = useForm({
         resolver: zodResolver(tutorSchema),
@@ -33,16 +39,26 @@ const SubjectManagement = () => {
         name: "availability",
     });
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data : any) => {
         setLoading(true);
         try {
-            // Simulate API call
-        
-            console.log("Submitting:", data);
+            
+            const subjectData : ISubject = {
+                tutorId : tutorData!.user.id,
+                ...data,
+            };
+            const res = await createSubject(subjectData);
+            // console.log(res);
+            // console.log("Submitting:", subjectData);
+
+            if(res.success){
+                toast.success(res.message);
+            }
+            else{
+                toast.error(res.message);
+            }
 
 
-            // await new Promise((resolve) => setTimeout(resolve, 1000));
-            toast.success("Profile updated successfully!");
         } catch (error) {
             console.log(error);
             toast.error("Failed to update profile. Please try again.");
@@ -62,7 +78,7 @@ const SubjectManagement = () => {
                         {/* Bio */}
                         <FormField
                             control={form.control}
-                            name="bio"
+                            name="description"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Bio</FormLabel>

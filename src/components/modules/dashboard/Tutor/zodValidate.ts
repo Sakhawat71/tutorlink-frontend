@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const tutorSchema = z.object({
-    bio: z.string().min(10).max(500),
+    description: z.string().min(10).max(500),
     subject: z.string().min(1, "Subject cannot be empty"),
     hourlyRate: z.number().min(5).max(100),
     location: z.enum(["Online", "In-Person"]),
