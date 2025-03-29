@@ -1,6 +1,7 @@
 "use server";
 
 import { ISubject } from "@/types";
+import { revalidateTag } from "next/cache";
 
 
 export const createSubject = async (subData: ISubject) => {
@@ -12,7 +13,7 @@ export const createSubject = async (subData: ISubject) => {
             },
             body: JSON.stringify(subData),
         });
-        // revalidateTag("PRODUCT");
+        revalidateTag("SUBJECT");
         return await res.json();
 
     } catch (error) {
@@ -20,39 +21,48 @@ export const createSubject = async (subData: ISubject) => {
     }
 };
 
-// export const getSubjects = async (subData) => {
-//     try {
-//         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/subjects`, {
 
-//         })
-//     } catch (error) {
-//         return error;
-//     }
-// };
-
-// Get all subjects for a tutor (assuming tutorId filter)
-export const getSubjects = async (tutorId?: string): Promise<ApiResponse<ISubject[]>> => {
+// Get all subjects for a tutor
+export const getSubjects = async (tutorId?: string) => {
     try {
         const url = tutorId
-            ? `${process.env.NEXT_PUBLIC_BASE_API}/tutor/subjects?tutorId=${tutorId}`
-            : `${process.env.NEXT_PUBLIC_BASE_API}/tutor/subjects`;
+            ? `${process.env.NEXT_PUBLIC_BASE_API}/subjects?tutorId=${tutorId}`
+            : `${process.env.NEXT_PUBLIC_BASE_API}/subjects`;
 
         const res = await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
-            cache: "no-store", // Ensure fresh data, adjust as needed
+            cache: "no-store",
+            next: {
+                tags: ["SUBJECT"]
+            }
         });
-
-        if (!res.ok) {
-            throw new Error(`Failed to fetch subjects: ${res.statusText}`);
-        }
 
         const data: ISubject[] = await res.json();
         return { data };
     } catch (error) {
         console.error("Error in getSubjects:", error);
         return { error: error instanceof Error ? error.message : "An unexpected error occurred" };
+    }
+};
+
+
+// get single product
+export const getSingleSubject = async (productId: string) => {
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/subjects/${productId}`,
+            {
+                next: {
+                    tags: ["SUBJECT"],
+                },
+            }
+        );
+        const data = await res.json();
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
     }
 };
