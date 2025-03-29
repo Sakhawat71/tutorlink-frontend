@@ -1,4 +1,5 @@
 "use client";
+
 import {
     Card,
     CardContent,
@@ -10,25 +11,25 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, DollarSign, MapPin } from "lucide-react";
-import { ISubject } from "@/types"; 
+import { ISubject } from "@/types";
 import { toast } from "sonner";
 
-interface SubjectCardProps {
-    subjectId?: string; // Optional prop to fetch a specific subject
-}
+// interface SubjectCardProps {
+//     subjectId?: string;
+// } : React.FC<SubjectCardProps>
 
-const ShowSubjectCard: React.FC<SubjectCardProps> = ({ subjectId }) => {
-
-
+const ShowSubjectCard = ({ subjectdata }) => {
 
 
-    if (loading) {
-        return <div className="text-center">Loading...</div>;
-    }
 
-    if (!subject) {
-        return <div className="text-center">No subject available</div>;
-    }
+
+    // if (loading) {
+    //     return <div className="text-center">Loading...</div>;
+    // }
+
+    // if (!subject) {
+    //     return <div className="text-center">No subject available</div>;
+    // }
 
     return (
         <Card className="max-w-md mx-auto shadow-lg border border-gray-100">

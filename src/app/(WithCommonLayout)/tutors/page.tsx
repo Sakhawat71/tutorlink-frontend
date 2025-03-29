@@ -5,11 +5,11 @@ import React from 'react';
 const TutorsPage = async () => {
 
     const {data} = await getSubjects();
-    console.log(data);
+    // console.log(data);
 
     return (
         <div>
-            <BrowseTutors />
+            <BrowseTutors subject={data?.data} />
         </div>
     );
 };
