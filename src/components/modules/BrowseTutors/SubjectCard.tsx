@@ -21,7 +21,8 @@ import { toast } from "sonner";
 const ShowSubjectCard = ({ subjectdata }) => {
 
 
-
+    // eid mubarak 
+    // mr  Shuvo
 
     // if (loading) {
     //     return <div className="text-center">Loading...</div>;
