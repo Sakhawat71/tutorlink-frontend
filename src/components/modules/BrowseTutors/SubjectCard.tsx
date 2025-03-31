@@ -21,9 +21,6 @@ import { toast } from "sonner";
 const ShowSubjectCard = ({ subjectdata }) => {
 
 
-    // eid mubarak 
-    // mr  Shuvo
-
     // if (loading) {
     //     return <div className="text-center">Loading...</div>;
     // }
@@ -36,10 +33,10 @@ const ShowSubjectCard = ({ subjectdata }) => {
         <Card className="max-w-md mx-auto shadow-lg border border-gray-100">
             <CardHeader>
                 <CardTitle className="text-2xl font-bold text-indigo-600">
-                    {subject.subject}
+                    {/* {subject.subject} */}
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                    {subject.description}
+                    {/* {subject.description} */}
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -49,7 +46,7 @@ const ShowSubjectCard = ({ subjectdata }) => {
                 </div>
                 <div className="flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-indigo-500" />
-                    <span>{subject.location}</span>
+                    {/* <span>{subject.location}</span> */}
                 </div>
                 <div className="space-y-2">
                     <h3 className="font-semibold text-gray-700 flex items-center gap-2">
