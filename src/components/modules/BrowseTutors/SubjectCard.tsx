@@ -3,64 +3,95 @@
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, DollarSign, MapPin } from "lucide-react";
+import { Calendar, DollarSign, MapPin, User } from "lucide-react";
 import { ISubject } from "@/types";
-import { toast } from "sonner";
+import Link from "next/link";
 
+interface ShowSubjectCardProps {
+    subject: ISubject | null;
+};
 
-const ShowSubjectCard = ({ subject }) => {
-
-    console.log(subject);
-
-
+const ShowSubjectCard: React.FC<ShowSubjectCardProps> = ({ subject }) => {
     if (!subject) {
-        return <div className="text-center">No subject available</div>;
+        return <div className="text-center text-gray-500">No subject available</div>;
     }
 
     return (
-        <Card className="max-w-md mx-auto shadow-lg border border-gray-100">
-            <CardHeader>
-                <CardTitle className="text-2xl font-bold text-indigo-600">
-                    {subject?.subject}
+        <Card className="w-full border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 rounded-lg overflow-hidden">
+
+            {/* Card Header (Title and Tutor) */}
+            <CardHeader className="p-4 bg-white text-center border-2">
+                <CardTitle className="text-lg font-semibold text-gray-900 line-clamp-2">
+                    {subject.subject}
                 </CardTitle>
-                <CardDescription className="text-gray-600">
-                    {subject?.description}
-                </CardDescription>
+                <div className="flex items-center justify-center gap-1 text-sm text-gray-600">
+                    <User className="h-4 w-4 text-gray-500" />
+                    <span className="font-medium">{subject?.tutor?.name as string || "Unknown Tutor"}</span>
+                </div>
             </CardHeader>
-            <CardContent className="space-y-4">
-                <div className="flex items-center gap-2">
-                    <DollarSign className="h-5 w-5 text-indigo-500" />
-                    <span className="font-semibold">${subject?.hourlyRate}/hr</span>
+
+            {/* Card Content (Details) */}
+            <CardContent className="p-4 space-y-3">
+                {/* Description (shortened, Udemy-like) */}
+                <p className="text-sm text-gray-600 line-clamp-2">
+                    {subject.description.slice(0, 100)}
+                </p>
+
+                <div className="flex items-center justify-between">
+                    {/* Price */}
+                    <div className="flex items-center gap-1 text-gray-800">
+                        <DollarSign className="h-4 w-4 text-gray-500" />
+                        <span className="text-lg font-bold">${subject.hourlyRate}</span>
+                        <span className="text-sm text-gray-500">/hr</span>
+                    </div>
+
+                    {/* Location */}
+                    <div className="flex items-center gap-1 text-sm text-gray-600">
+                        <MapPin className="h-4 w-4 text-gray-500" />
+                        <span>{subject.location}</span>
+                    </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5 text-indigo-500" />
-                    <span>{subject?.location}</span>
-                </div>
-                <div className="space-y-2">
-                    <h3 className="font-semibold text-gray-700 flex items-center gap-2">
-                        <Calendar className="h-5 w-5 text-indigo-500" />
-                        Availability
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                        {subject.availability.map((slot, index) => (
-                            <Badge key={index} variant="outline" className="text-sm">
-                                {slot.day}: {slot.startTime} - {slot.endTime}
+
+                {/* Availability (Compact) */}
+                <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-1 text-sm text-gray-600 py-2">
+                        <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4 text-gray-500" />
+                            <span className="font-medium">Availability</span>
+                        </div>
+                        <h2>{subject.availability.length}</h2>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        {subject.availability.slice(0, 2).map((slot, index) => ( // Limit to 2 for compactness
+                            <Badge key={index} variant="secondary" className="text-xs bg-gray-100 text-gray-700">
+                                {slot.day}: {slot.startTime}-{slot.endTime}
                             </Badge>
                         ))}
+                        {subject.availability.length > 2 && (
+                            <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-700">
+                                +{subject.availability.length - 2} more
+                            </Badge>
+                        )}
                     </div>
                 </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
-                <Button variant="outline" className="text-indigo-600 border-indigo-600 hover:bg-indigo-50">
-                    Book Now
-                </Button>
+
+            {/* Card Footer (Button) */}
+            <CardFooter className="px-4 bg-gray-50">
+                <Link href={`/subject/${subject._id}`} className="w-full">
+                    <Button
+                        variant="default"
+                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-md transition"
+                    >
+                        Book Now
+                    </Button>
+                </Link>
             </CardFooter>
         </Card>
     );
