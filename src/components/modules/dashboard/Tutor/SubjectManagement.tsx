@@ -44,7 +44,7 @@ const SubjectManagement = () => {
         try {
             
             const subjectData : ISubject = {
-                tutorId : tutorData!.user.id,
+                tutor : tutorData!.user.id,
                 ...data,
             };
             const res = await createSubject(subjectData);
