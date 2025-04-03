@@ -5,6 +5,7 @@ export interface IAvailability {
 }
 
 export interface ISubject {
+    _id?: string;
     tutor: string;
     description: string;
     subject: string;
