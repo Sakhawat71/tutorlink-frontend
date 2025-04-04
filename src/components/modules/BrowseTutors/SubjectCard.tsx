@@ -23,7 +23,7 @@ const ShowSubjectCard: React.FC<ShowSubjectCardProps> = ({ subject }) => {
     }
 
     return (
-        <Card className="w-full border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 rounded-lg overflow-hidden py-4 flex flex-col my-2">
+        <Card className="w-full border border-gray-200 shadow-2xl hover:shadow-md transition-shadow duration-200 rounded-lg overflow-hidden py-4 flex flex-col my-2">
 
             {/* Card Header (Title and Tutor) */}
             <CardHeader className="p-1 bg-white text-center ">

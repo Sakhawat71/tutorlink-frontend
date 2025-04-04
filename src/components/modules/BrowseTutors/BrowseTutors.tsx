@@ -2,7 +2,6 @@
 
 import ShowSubjectCard from "./SubjectCard";
 
-// import { getSubjects } from "@/services/SubjectService";
 
 const BrowseTutors = ({ subject }) => {
     console.log(subject);
