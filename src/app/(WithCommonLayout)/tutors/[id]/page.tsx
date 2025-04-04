@@ -9,7 +9,7 @@ const SubjectDetails = () => {
 
     return (
         <div>
-            <h2>Id : {id}</h2>
+            <h2>Subject Id : {id}</h2>
         </div>
     );
 };
