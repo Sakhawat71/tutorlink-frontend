@@ -1,17 +1,14 @@
-"use client"
 
-import { useParams } from 'next/navigation';
+import SubjectDetails from '@/components/modules/BrowseTutors/SubjectDetails';
 import React from 'react';
 
-const SubjectDetails = () => {
-
-    const { id } = useParams();
+const SubjectDetailsPage = () => {
 
     return (
         <div>
-            <h2>Subject Id : {id}</h2>
+            <SubjectDetails />
         </div>
     );
 };
 
-export default SubjectDetails;
+export default SubjectDetailsPage;
