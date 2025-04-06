@@ -49,7 +49,11 @@ export const TutorSignupForm = () => {
 
     // Form submission handler
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        const registerData = { ...data, role: "tutor" };
+        const registerData = {
+            ...data,
+            role: "tutor",
+            available: true
+        };
         const toastId = toast.loading("Signing up...");
 
         try {
