@@ -1,15 +1,16 @@
 import BrowseTutors from '@/components/modules/BrowseTutors/BrowseTutors';
 import { getSubjects } from '@/services/SubjectService';
+import { ISubject } from '@/types';
 import React from 'react';
 
 const TutorsPage = async () => {
 
-    const {data} = await getSubjects();
-    // console.log(data);
+    const result = await getSubjects();
+    const subjects = result.data as ISubject[];
 
     return (
         <div>
-            <BrowseTutors subject={data?.data} />
+            <BrowseTutors subject={subjects} />
         </div>
     );
 };

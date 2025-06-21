@@ -1,10 +1,13 @@
 "use client";
 
+import { ISubject } from "@/types";
 import ShowSubjectCard from "./SubjectCard";
 
+interface BrowseTutorsProps {
+    subject: ISubject[];
+}
 
-const BrowseTutors = ({ subject }) => {
-    console.log(subject);
+const BrowseTutors = ({ subject }: BrowseTutorsProps) => {
 
     return (
         <div className="container mx-auto py-10 px-5 md:px-10 lg:px-20">

@@ -40,8 +40,8 @@ export const getSubjects = async (tutorId?: string) => {
             }
         });
 
-        const data: ISubject[] = await res.json();
-        return { data };
+        const data = await res.json();
+        return data;
     } catch (error) {
         console.error("Error in getSubjects:", error);
         return { error: error instanceof Error ? error.message : "An unexpected error occurred" };

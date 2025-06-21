@@ -5,6 +5,7 @@ export interface IAvailability {
 }
 
 export interface ISubject {
+    id: string | null | undefined;
     _id?: string;
     tutor: string;
     description: string;
