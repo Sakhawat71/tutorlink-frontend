@@ -38,7 +38,7 @@ export const daysOfWeek = [
 ] as const;
 
 export const tutorSchema = z.object({
-    profileImage: z.instanceof(File),
+    profileImage: z.string().url("Invalid URL"),
     bio: z.string().min(10),
     subjectList: z.array(z.string().min(1)),
     hourlyRate: z.string().min(1).regex(/^\d+$/, "Must be a number"),

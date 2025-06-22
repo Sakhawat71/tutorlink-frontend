@@ -26,6 +26,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
 import { daysOfWeek, tutorSchema } from "./zodValidate";
 import { uploadToCloudinary } from "@/lib/uploadToCloudinary";
+import { toast } from "sonner";
 type FormData = z.infer<typeof tutorSchema>;
 
 
@@ -73,32 +74,38 @@ const CreateTutorProfile = () => {
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      // setPreview(URL.createObjectURL(file));
-      // form.setValue("profileImage", file);
+    if (!file) return;
 
+    try {
       const { url } = await uploadToCloudinary(file);
       if (url) {
+        console.log(url);
         setPreview(url);
-        form.setValue("profileImage", file);
+        form.setValue("profileImage", url as any);
       } else {
-        console.error("Image upload failed");
+        toast.error("Image upload failed. Please try again.");
+        console.error("Image upload failed: no URL returned.");
       }
+    } catch (error) {
+      toast.error("Upload error occurred.");
+      console.error("Upload error:", error);
     }
   };
 
-  const onSubmit = async (data: FormData) => {
-    // console.log(data);
 
-    const numericData = {
+  const onSubmit = async (data: FormData) => {
+    const transformedData = {
       ...data,
-      // profileImage: "",
       hourlyRate: Number(data.hourlyRate),
       experience: data.experience ? Number(data.experience) : undefined,
     };
 
-    console.log("Submitted Data:", numericData);
+    console.log("Submitted Data:", transformedData);
+
+    // You can now send `transformedData` to your API
+    // Example: await saveTutorProfile(transformedData)
   };
+
 
   return (
     <Card className="max-w-4xl mx-auto p-6 shadow-xl">
@@ -112,6 +119,8 @@ const CreateTutorProfile = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
             <div className="flex items-center justify-center mb-4">
+
+              
               <FormItem className="flex flex-col items-center">
                 {preview && (
                   <img
@@ -128,6 +137,7 @@ const CreateTutorProfile = () => {
                   onChange={handleImageChange}
                 />
               </FormItem>
+
             </div>
 
             <FormField
