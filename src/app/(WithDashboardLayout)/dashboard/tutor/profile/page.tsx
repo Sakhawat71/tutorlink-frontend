@@ -1,5 +1,5 @@
-import CreateTutorProfile from '@/components/modules/dashboard/Tutor/TutorProfile';
 import React from 'react';
+import CreateTutorProfile from '@/components/modules/dashboard/Tutor/TutorProfile';
 
 const TutorProfilePage = () => {
 

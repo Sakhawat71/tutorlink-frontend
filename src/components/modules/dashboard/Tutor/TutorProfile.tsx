@@ -24,36 +24,11 @@ import {
 } from "@/components/ui/select";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
-
-const daysOfWeek = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-] as const;
-
-const tutorSchema = z.object({
-  profileImage: z.instanceof(File),
-  bio: z.string().min(10),
-  subjectList: z.array(z.string().min(1)),
-  hourlyRate: z.string().min(1).regex(/^\d+$/, "Must be a number"),
-  experience: z.string().min(0).regex(/^\d*$/, "Must be a number"),
-  location: z.enum(["Online", "In-Person"]),
-  availability: z
-    .array(
-      z.object({
-        day: z.enum(daysOfWeek),
-        startTime: z.string(),
-        endTime: z.string(),
-      })
-    )
-    .min(1),
-});
-
+import { daysOfWeek, tutorSchema } from "./zodValidate";
+import { uploadToCloudinary } from "@/lib/uploadToCloudinary";
 type FormData = z.infer<typeof tutorSchema>;
+
+
 
 const CreateTutorProfile = () => {
   const [preview, setPreview] = useState<string | null>(null);
@@ -96,23 +71,32 @@ const CreateTutorProfile = () => {
     name: "availability",
   });
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setPreview(URL.createObjectURL(file));
-      form.setValue("profileImage", file);
+      // setPreview(URL.createObjectURL(file));
+      // form.setValue("profileImage", file);
+
+      const { url } = await uploadToCloudinary(file);
+      if (url) {
+        setPreview(url);
+        form.setValue("profileImage", file);
+      } else {
+        console.error("Image upload failed");
+      }
     }
   };
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
+    // console.log(data);
 
     const numericData = {
       ...data,
+      // profileImage: "",
       hourlyRate: Number(data.hourlyRate),
       experience: data.experience ? Number(data.experience) : undefined,
     };
 
-    // console.log('clicked');
     console.log("Submitted Data:", numericData);
   };
 
