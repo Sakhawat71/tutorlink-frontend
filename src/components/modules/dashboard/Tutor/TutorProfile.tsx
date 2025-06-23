@@ -41,25 +41,23 @@ const CreateTutorProfile = () => {
 
   const [preview, setPreview] = useState<string | null>(null);
 
-  const form = useForm<FormData>(
-    {
-      resolver: zodResolver(tutorProfileSchema),
-      defaultValues: {
-        bio: "",
-        subjectList: [""],
-        hourlyRate: "",
-        location: "Online",
-        experience: "",
-        availability: [
-          {
-            day: "Monday",
-            startTime: "09:00",
-            endTime: "10:00",
-          },
-        ],
-      },
-    }
-  );
+  const form = useForm<FormData>({
+    resolver: zodResolver(tutorProfileSchema),
+    defaultValues: {
+      bio: "",
+      subjectList: [""],
+      hourlyRate: "",
+      location: "Online",
+      experience: "",
+      availability: [
+        {
+          day: "Monday",
+          startTime: "09:00",
+          endTime: "10:00",
+        },
+      ],
+    },
+  });
 
   const {
     fields: subjectFields,
@@ -67,7 +65,7 @@ const CreateTutorProfile = () => {
     remove: removeSubject,
   } = useFieldArray({
     control: form.control,
-    name: "subjectList",
+    name: "subjectList" as any,
   });
 
   const {
