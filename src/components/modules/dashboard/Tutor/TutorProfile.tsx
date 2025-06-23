@@ -24,19 +24,26 @@ import {
 } from "@/components/ui/select";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
-import { daysOfWeek, tutorSchema } from "./zodValidate";
+import { daysOfWeek, tutorProfileSchema } from "./zodValidate";
 import { uploadToCloudinary } from "@/lib/uploadToCloudinary";
 import { toast } from "sonner";
-type FormData = z.infer<typeof tutorSchema>;
+import { useSession } from "next-auth/react";
+type FormData = z.infer<typeof tutorProfileSchema>;
 
 
 
 const CreateTutorProfile = () => {
+
+  const user = useSession();
+  console.log(user.data?.user);
+  const { id, name, email } = user.data?.user || {};
+
+
   const [preview, setPreview] = useState<string | null>(null);
 
   const form = useForm<FormData>(
     {
-      resolver: zodResolver(tutorSchema),
+      resolver: zodResolver(tutorProfileSchema),
       defaultValues: {
         bio: "",
         subjectList: [""],
@@ -98,12 +105,13 @@ const CreateTutorProfile = () => {
       ...data,
       hourlyRate: Number(data.hourlyRate),
       experience: data.experience ? Number(data.experience) : undefined,
+      id,
+      name,
+      email
     };
 
     console.log("Submitted Data:", transformedData);
 
-    // You can now send `transformedData` to your API
-    // Example: await saveTutorProfile(transformedData)
   };
 
 
@@ -120,7 +128,6 @@ const CreateTutorProfile = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
             <div className="flex items-center justify-center mb-4">
 
-              
               <FormItem className="flex flex-col items-center">
                 {preview && (
                   <img

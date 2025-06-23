@@ -1,9 +1,8 @@
 import React from 'react';
 import CreateTutorProfile from '@/components/modules/dashboard/Tutor/TutorProfile';
 
-const TutorProfilePage = () => {
+const TutorProfilePage = async () => {
 
-    
     return (
         <div>
             <CreateTutorProfile />

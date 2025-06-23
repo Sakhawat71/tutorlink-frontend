@@ -32,7 +32,7 @@ const ShowSubjectCard: React.FC<ShowSubjectCardProps> = ({ subject }) => {
                 </CardTitle>
                 <div className="cursor-pointer flex items-center justify-center gap-1 text-sm text-gray-600">
                     <User className="h-4 w-4 text-gray-500" />
-                    <span className="font-medium">{subject?.tutor?.name || "Unknown Tutor"}</span>
+                    {/* <span className="font-medium">{subject?.tutor?.name || "Unknown Tutor"}</span> */}
                 </div>
             </CardHeader>
 
