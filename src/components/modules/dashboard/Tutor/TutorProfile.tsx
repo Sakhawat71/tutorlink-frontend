@@ -28,6 +28,7 @@ import { daysOfWeek, tutorProfileSchema } from "./zodValidate";
 import { uploadToCloudinary } from "@/lib/uploadToCloudinary";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import { createTutorProfile } from "@/services/TutorProfile";
 type FormData = z.infer<typeof tutorProfileSchema>;
 
 
@@ -35,7 +36,7 @@ type FormData = z.infer<typeof tutorProfileSchema>;
 const CreateTutorProfile = () => {
 
   const user = useSession();
-  console.log(user.data?.user);
+  // console.log(user.data?.user);
   const { id, name, email } = user.data?.user || {};
 
 
@@ -47,7 +48,7 @@ const CreateTutorProfile = () => {
       bio: "",
       subjectList: [""],
       hourlyRate: "",
-      location: "Online",
+      location: "ONLINE",
       experience: "",
       availability: [
         {
@@ -84,7 +85,7 @@ const CreateTutorProfile = () => {
     try {
       const { url } = await uploadToCloudinary(file);
       if (url) {
-        console.log(url);
+        // console.log(url);
         setPreview(url);
         form.setValue("profileImage", url as any);
       } else {
@@ -103,12 +104,14 @@ const CreateTutorProfile = () => {
       ...data,
       hourlyRate: Number(data.hourlyRate),
       experience: data.experience ? Number(data.experience) : undefined,
-      id,
+      userId: id,
       name,
       email
     };
+    // console.log("Submitted Data:", transformedData);
 
-    console.log("Submitted Data:", transformedData);
+    const res = await createTutorProfile(transformedData);
+    console.log("res in tutor profile",res);
 
   };
 
@@ -284,7 +287,7 @@ const CreateTutorProfile = () => {
                         </FormControl>
                         <SelectContent>
                           <SelectItem
-                            value="Online"
+                            value="ONLINE"
                             className="hover:bg-gray-100"
                           >
                             <div className="flex items-center gap-2">
@@ -293,7 +296,7 @@ const CreateTutorProfile = () => {
                             </div>
                           </SelectItem>
                           <SelectItem
-                            value="In-Person"
+                            value="ONSITE"
                             className="hover:bg-gray-100"
                           >
                             <div className="flex items-center gap-2">

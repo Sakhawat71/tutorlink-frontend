@@ -7,7 +7,7 @@ export interface ITutor {
     bio: string;
     subjectList: string[];
     hourlyRate: number;
-    location: "Online" | "In-Person";
+    location: "ONLINE" | "ONSITE";
     availability: IAvailability[];
     experience?: number;
     createdAt?: Date;

@@ -66,6 +66,8 @@ export const TutorSignupForm = () => {
 
             toast.success(`${res.message}! Logging you in...`, { id: toastId });
 
+            console.log(res.data.isCompleteProfile);
+
             // Login after successful registration
             const result = await signIn("credentials", {
                 email: data.email,
@@ -78,7 +80,15 @@ export const TutorSignupForm = () => {
             }
 
             toast.success("Login successful 🎉");
-            router.push("/");
+
+            // 3. Conditional Redirect
+            if (res.data?.role === "tutor" && !res.data?.isCompleteProfile) {
+                router.push("/dashboard/tutor/profile");
+            } else {
+                router.push("/");
+            }
+
+            // router.push("/");
         } catch (error) {
             console.error("Signup/Login error:", error);
             toast.error("Something went wrong!", { id: toastId });

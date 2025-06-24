@@ -43,7 +43,7 @@ export const tutorProfileSchema = z.object({
     subjectList: z.array(z.string().min(1)),
     hourlyRate: z.string().min(1).regex(/^\d+$/, "Must be a number"),
     experience: z.string().min(0).regex(/^\d*$/, "Must be a number"),
-    location: z.enum(["Online", "In-Person"]),
+    location: z.enum(["ONLINE", "ONSITE"]),
     availability: z
         .array(
             z.object({
