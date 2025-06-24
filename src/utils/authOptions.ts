@@ -42,10 +42,11 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials) {
 
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/auth/login`, {
                     method: 'POST',
                     body: JSON.stringify(credentials),
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include"
                 })
                 const user = await res.json();
                 const decoded = jwtDecode(user.data) as IDecoded;

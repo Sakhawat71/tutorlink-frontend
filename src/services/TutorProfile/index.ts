@@ -4,7 +4,7 @@ import { revalidateTag } from "next/cache";
 
 export const createTutorProfile = async (payload: any) => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/tutor`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/tutor`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
