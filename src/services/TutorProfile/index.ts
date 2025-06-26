@@ -19,3 +19,20 @@ export const createTutorProfile = async (payload: any) => {
         return error;
     }
 };
+
+
+export const getTutorProfiles = async () => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/tutor`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            cache: "no-store"
+        });
+        revalidateTag("tutor-profile");
+        return await res.json();
+    } catch (error) {
+        return error;
+    }
+};

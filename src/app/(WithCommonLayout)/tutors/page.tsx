@@ -1,3 +1,4 @@
+import BrowseTutors from '@/components/modules/browseTutors/BrowseTutors';
 import React from 'react';
 
 const TutorsPage = async () => {
@@ -5,7 +6,7 @@ const TutorsPage = async () => {
 
     return (
         <div>
-            <h1>Hello</h1>
+            <BrowseTutors />
         </div>
     );
 };
