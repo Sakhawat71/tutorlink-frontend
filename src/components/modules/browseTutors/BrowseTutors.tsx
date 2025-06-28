@@ -3,11 +3,12 @@
 import { getTutorProfiles } from "@/services/TutorProfile";
 import { useEffect, useState } from "react";
 import { TutorCard } from "./TutorCard";
+import { ITutor } from "@/types/tutor.type";
 
 
 const BrowseTutors = () => {
 
-    const [tutorProfiles, setTutorProfile] = useState([]);
+    const [tutorProfiles, setTutorProfile] = useState<ITutor[]>([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -18,7 +19,7 @@ const BrowseTutors = () => {
         fetchData();
     }, [])
 
-    // console.log(tutorProfiles);
+    console.log(tutorProfiles);
 
     // loading 
     if (tutorProfiles.length === 0) {
