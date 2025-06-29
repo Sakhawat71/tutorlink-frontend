@@ -14,14 +14,23 @@ export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
     const reviews = 24;
     const responseTime = "2 hours";
     const backgroundChecked = true;
-    const subjectsTaught = tutor.subjectList.length;
+    const subjectsTaught = tutor?.subjectList?.length;
 
     // Group availability by day
-    const availabilityByDay = tutor.availability.reduce((acc, slot) => {
+    const availabilityByDay = tutor?.availability?.reduce((acc, slot) => {
         if (!acc[slot.day]) acc[slot.day] = [];
         acc[slot.day].push(`${slot.startTime} - ${slot.endTime}`);
         return acc;
     }, {} as Record<string, string[]>);
+
+
+    if(!tutor) {
+        return (
+            <div className="max-w-6xl mx-auto px-4 py-8">
+                <p className="text-center text-gray-500">Loading tutor details...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">

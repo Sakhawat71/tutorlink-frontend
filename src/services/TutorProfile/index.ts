@@ -12,7 +12,7 @@ export const createTutorProfile = async (payload: any) => {
             body: JSON.stringify(payload),
         });
         revalidateTag("tutor-profile");
-        console.log("in service ",res);
+        console.log("in service ", res);
         return await res.json();
 
     } catch (error) {
@@ -31,6 +31,22 @@ export const getTutorProfiles = async () => {
             cache: "no-store"
         });
         revalidateTag("tutor-profile");
+        return await res.json();
+    } catch (error) {
+        return error;
+    }
+};
+
+
+export const getTutorDetails = async (id: string) => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/tutor/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            cache: "no-store"
+        });
         return await res.json();
     } catch (error) {
         return error;

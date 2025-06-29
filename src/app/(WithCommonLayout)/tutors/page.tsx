@@ -3,7 +3,6 @@ import React from 'react';
 
 const TutorsPage = async () => {
 
-
     return (
         <div>
             <BrowseTutors />
