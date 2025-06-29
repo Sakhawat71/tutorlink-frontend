@@ -1,12 +1,13 @@
+import { TutorDetailsComponent } from '@/components/modules/browseTutors/TutorDetails';
 import React from 'react';
 
-const SubjectDetailsPage = () => {
+const TutorDetailsPage = () => {
 
     return (
-        <div>
-            <h1>details page</h1>
+        <div className="bg-gray-50 min-h-screen">
+            <TutorDetailsComponent tutor={tutor} />
         </div>
     );
 };
 
-export default SubjectDetailsPage;
+export default TutorDetailsPage;
