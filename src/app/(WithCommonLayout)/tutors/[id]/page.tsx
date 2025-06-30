@@ -30,7 +30,6 @@ const TutorDetailsPage = () => {
 
     return (
         <div className="bg-gray-50 min-h-screen">
-            <p>Details page</p>
             {tutor && <TutorDetailsComponent tutor={tutor} />}
         </div>
     );
