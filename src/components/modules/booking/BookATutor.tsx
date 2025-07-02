@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 // import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { IAvailability, ITutor } from '@/types/tutor.type';
+import { Calendar } from 'lucide-react';
 
 const localizer = momentLocalizer(moment);
 
@@ -30,16 +31,7 @@ export default function BookSession() {
   };
 
   const handleBooking = async () => {
-    const res = await fetch('/api/bookings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        tutorId: tutor?.id,
-        slot: selectedSlot,
-        duration,
-        subject
-      })
-    });
+
     // Handle payment redirect or confirmation
   };
 
