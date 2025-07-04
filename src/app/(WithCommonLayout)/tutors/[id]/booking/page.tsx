@@ -5,7 +5,7 @@ const BookTutorPage = () => {
     return (
         <div>
             book a tutor page
-            <BookSession />
+            {/* <BookSession /> */}
         </div>
     );
 };

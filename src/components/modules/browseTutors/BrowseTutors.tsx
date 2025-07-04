@@ -19,7 +19,7 @@ const BrowseTutors = () => {
         fetchData();
     }, [])
 
-    console.log(tutorProfiles);
+    // console.log(tutorProfiles);
 
     // loading 
     if (tutorProfiles?.length === 0) {
