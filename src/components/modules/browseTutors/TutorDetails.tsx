@@ -3,6 +3,7 @@ import { Clock, MapPin, Star, User, Mail, BookOpen, Check, GraduationCap } from 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ITutor } from "@/types/tutor.type";
+import Link from "next/link";
 
 interface TutorDetailsProps {
     tutor: ITutor;
@@ -24,7 +25,7 @@ export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
     }, {} as Record<string, string[]>);
 
 
-    if(!tutor) {
+    if (!tutor) {
         return (
             <div className="max-w-6xl mx-auto px-4 py-8">
                 <p className="text-center text-gray-500">Loading tutor details...</p>
@@ -72,9 +73,17 @@ export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
 
                             <div className="w-full mt-6 space-y-3">
                                 <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12">
-                                    Book a Lesson
+                                    <Link
+                                        href="#"
+                                    >
+                                        Book a Lesson
+                                    </Link>
                                 </Button>
-                                <Button variant="outline" className="w-full h-12">
+
+                                <Button
+                                    variant="outline"
+                                    className="w-full h-12"
+                                >
                                     <Mail className="h-4 w-4 mr-2" /> Message
                                 </Button>
                             </div>
