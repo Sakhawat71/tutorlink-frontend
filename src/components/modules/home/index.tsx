@@ -4,8 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Search } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function HomeComponents() {
+
+    const { data: session } = useSession();
+
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Hero Section */}
@@ -29,19 +33,27 @@ export default function HomeComponents() {
                             Search
                         </Button>
                     </div>
+
+
+
                     {/* CTAs */}
-                    <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/student-signup">
-                            <Button className="rounded-full px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-white text-indigo-600 hover:bg-gray-100">
-                                Sign Up as a Student
-                            </Button>
-                        </Link>
-                        <Link href="/tutor-signup">
-                            <Button className="rounded-full px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-indigo-700 hover:bg-indigo-800">
-                                Register as a Tutor
-                            </Button>
-                        </Link>
-                    </div>
+                    {
+                        !session && (
+                            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                                <Link href="/student-signup">
+                                    <Button className="rounded-full px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-white text-indigo-600 hover:bg-gray-100">
+                                        Sign Up as a Student
+                                    </Button>
+                                </Link>
+                                <Link href="/tutor-signup">
+                                    <Button className="rounded-full px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-indigo-700 hover:bg-indigo-800">
+                                        Register as a Tutor
+                                    </Button>
+                                </Link>
+                            </div>
+                        )
+                    }
+
                 </div>
             </section>
 
