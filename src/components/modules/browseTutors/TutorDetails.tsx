@@ -25,13 +25,6 @@ export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
     }, {} as Record<string, string[]>);
 
 
-    if (!tutor) {
-        return (
-            <div className="max-w-6xl mx-auto px-4 py-8">
-                <p className="text-center text-gray-500">Loading tutor details...</p>
-            </div>
-        );
-    }
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
@@ -74,7 +67,7 @@ export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
                             <div className="w-full mt-6 space-y-3">
                                 <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12">
                                     <Link
-                                        href="#"
+                                        href={`/tutors/${tutor.id}/booking`}
                                     >
                                         Book a Lesson
                                     </Link>

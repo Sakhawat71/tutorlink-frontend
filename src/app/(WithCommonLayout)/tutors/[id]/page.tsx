@@ -7,11 +7,11 @@ import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const TutorDetailsPage = () => {
-    
+
     const [tutor, setTutor] = useState<ITutor | null>(null);
     const params = useParams();
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchTutorDetails = async (id: string) => {
             try {
                 const details = await getTutorDetails(id);
@@ -24,9 +24,16 @@ const TutorDetailsPage = () => {
         if (params.id) {
             fetchTutorDetails(params.id as string);
         }
-    },[params.id]);
+    }, [params.id]);
 
-    // console.log(tutor);
+
+    if (!tutor) {
+        return (
+            <div className="max-w-6xl mx-auto px-4 py-8">
+                <p className="text-center text-gray-500">Loading tutor details...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-gray-50 min-h-screen">
