@@ -13,26 +13,16 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { Skeleton } from "../ui/skeleton";
+// import { Skeleton } from "../ui/skeleton";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const userRole = session?.user?.role || null;
     const pathname = usePathname();
 
-    if (status === "loading") {
-        return (
-            <header className="border-b w-full bg-white">
-                <div className="container mx-auto h-16 px-4 flex justify-between items-center">
-                    <Skeleton className="h-8 w-32" />
-                    <Skeleton className="h-10 w-10 rounded-full" />
-                </div>
-            </header>
-        );
-    }
 
     return (
         <header className="border-b w-full bg-white shadow-sm">
