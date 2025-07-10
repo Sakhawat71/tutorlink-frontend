@@ -14,8 +14,9 @@ interface TutorDetailsProps {
 export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
     // Mock data for additional details
 
-    const user = useSession();
-    console.log(user?.data?.user);
+    const session = useSession();
+    const user = session?.data?.user;
+    console.log(session?.data?.user);
 
     const rating = 4.9;
     const reviews = 24;
@@ -70,15 +71,25 @@ export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
                                 <div className="text-gray-500">per hour</div>
                             </div>
 
+
                             <div className="w-full mt-6 space-y-3">
-                                <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12">
-                                    <Link
-                                        href={`/tutors/${tutor.id}/booking`}
-                                    >
-                                        Book a Lesson
-                                    </Link>
-                                </Button>
+                                {
+                                    user && user?.role === "student" ? (
+                                        <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12">
+                                            <Link
+                                                href={`/tutors/${tutor.id}/booking`}
+                                            >
+                                                Book a Lesson
+                                            </Link>
+                                        </Button>)
+                                        : (
+                                            <p className="text-red-300">Only registered students can book tutors.</p>
+                                        )
+                                }
                             </div>
+
+
+
 
                             <div className="w-full mt-6 space-y-3">
                                 <div className="flex items-center text-sm text-gray-600">
