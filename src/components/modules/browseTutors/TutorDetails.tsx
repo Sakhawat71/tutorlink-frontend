@@ -1,9 +1,11 @@
+"use client";
 
-import { Clock, MapPin, Star, User, Mail, BookOpen, Check, GraduationCap } from "lucide-react";
+import { Clock, MapPin, Star, User, BookOpen, Check, GraduationCap } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ITutor } from "@/types/tutor.type";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 interface TutorDetailsProps {
     tutor: ITutor;
@@ -11,6 +13,10 @@ interface TutorDetailsProps {
 
 export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
     // Mock data for additional details
+
+    const user = useSession();
+    console.log(user?.data?.user);
+
     const rating = 4.9;
     const reviews = 24;
     const responseTime = "2 hours";
@@ -71,13 +77,6 @@ export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
                                     >
                                         Book a Lesson
                                     </Link>
-                                </Button>
-
-                                <Button
-                                    variant="outline"
-                                    className="w-full h-12"
-                                >
-                                    <Mail className="h-4 w-4 mr-2" /> Message
                                 </Button>
                             </div>
 

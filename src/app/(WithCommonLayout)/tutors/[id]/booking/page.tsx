@@ -1,4 +1,4 @@
-import BookSession from '@/components/modules/booking/BookSession';
+// import BookSession from '@/components/modules/booking/BookSession';
 import React from 'react';
 
 const BookTutorPage = () => {
