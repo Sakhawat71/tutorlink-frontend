@@ -101,18 +101,7 @@ export default function Navbar() {
                                 FAQ
                             </Button>
                         </Link>
-                        <Link href="/blog">
-                            <Button
-                                variant="ghost"
-                                className={cn(
-                                    "text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors w-full md:w-auto text-left cursor-pointer",
-                                    pathname === "/blog" && "font-bold text-indigo-600"
-                                )}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                Blog
-                            </Button>
-                        </Link>
+                        
                     </nav>
 
                     {/* User Authentication Section */}

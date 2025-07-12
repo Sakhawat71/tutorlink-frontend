@@ -5,6 +5,8 @@ import { getTutorDetails } from '@/services/TutorProfile';
 import { ITutor } from '@/types/tutor.type';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { FadeLoader } from 'react-spinners';
+
 
 const TutorDetailsPage = () => {
 
@@ -29,8 +31,8 @@ const TutorDetailsPage = () => {
 
     if (!tutor) {
         return (
-            <div className="max-w-6xl mx-auto px-4 py-8">
-                <p className="text-center text-gray-500">Loading tutor details...</p>
+            <div className="flex items-center justify-center h-screen">
+                <FadeLoader />
             </div>
         );
     }
