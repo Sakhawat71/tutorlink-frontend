@@ -4,7 +4,7 @@ import { getTutorProfiles } from "@/services/TutorProfile";
 import { useEffect, useState } from "react";
 import { TutorCard } from "./TutorCard";
 import { ITutor } from "@/types/tutor.type";
-
+import {HashLoader} from 'react-spinners';
 
 const BrowseTutors = () => {
 
@@ -25,7 +25,7 @@ const BrowseTutors = () => {
     if (tutorProfiles?.length === 0) {
         return (
             <div className="flex items-center justify-center h-screen">
-                <div className="text-gray-500">Loading...</div>
+                <HashLoader />
             </div>
         );
     }
