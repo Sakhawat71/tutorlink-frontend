@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { BookOpen, Calendar, User, LogOut, Users, Settings, Clock, LayoutDashboard } from "lucide-react";
+import { BookOpen, Calendar, User, LogOut, Users, Settings, Clock, LayoutDashboard, Home } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -20,6 +20,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     let navItems;
 
     const StudentNavItems = [
+        {
+            title: "Home",
+            url: "/",
+            icon: <Home className="h-4 w-4" />,
+        },
         {
             title: "Dashboard",
             url: "/dashboard/student",
@@ -99,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/student/dashboard">
+                            <Link href="/dashboard/student">
                                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
                                     <User className="size-4" />
                                 </div>
