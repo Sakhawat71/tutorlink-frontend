@@ -18,6 +18,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
+import { HashLoader } from "react-spinners";
 
 
 export default function TutorDashboardPage(
@@ -28,7 +29,9 @@ export default function TutorDashboardPage(
 
     // Redirect if not authenticated or not a tutor
     if (status === "loading") {
-        return <div className="flex items-center justify-center h-screen">Loading...</div>;
+        return <div className="flex items-center justify-center h-screen">
+            <HashLoader />
+        </div>;
     }
     if (!session) {
         router.push("/login");
