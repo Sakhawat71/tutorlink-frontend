@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import Banner from "./Banner";
 // import { useSession } from "next-auth/react";
 
 export default function HomeComponents() {
@@ -11,7 +12,8 @@ export default function HomeComponents() {
     return (
         <div className="min-h-screen bg-gray-50">
             
-
+            <Banner />
+            
             {/* Key Features */}
             <section className="py-10 sm:py-12 md:py-16 bg-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">

@@ -19,13 +19,21 @@ const BrowseTutors = () => {
         fetchData();
     }, [])
 
-    // console.log(tutorProfiles);
+    console.log(tutorProfiles);
 
     // loading 
     if (tutorProfiles?.length === 0) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <HashLoader />
+            </div>
+        );
+    }
+
+    if(!tutorProfiles) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <p className="text-gray-500">No tutors found</p>
             </div>
         );
     }

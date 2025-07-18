@@ -1,13 +1,16 @@
+"use client";
+
 import { useSession } from 'next-auth/react';
 import React from 'react';
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Link, Search } from "lucide-react";
+import { Button } from '@/components/ui/button';
 
 
 const Banner = () => {
 
     const { data: session } = useSession();
-
+    
     return (
         <div>
             {/* Hero Section */}
