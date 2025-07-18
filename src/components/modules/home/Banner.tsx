@@ -3,16 +3,17 @@
 import { useSession } from 'next-auth/react';
 import React from 'react';
 import { Input } from "@/components/ui/input";
-import { Link, Search } from "lucide-react";
+import { Search } from "lucide-react";
+import Link from "next/link";
 import { Button } from '@/components/ui/button';
 
 
 const Banner = () => {
 
     const { data: session } = useSession();
-    
+
     return (
-        <div>
+        <div className='bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-12 sm:py-8 md:py-12 lg:py-14'>
             {/* Hero Section */}
             <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -37,7 +38,7 @@ const Banner = () => {
 
 
 
-                    {/* CTAs */}
+                    {/* Call to Action Buttons */}
                     {
                         !session && (
                             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center">
