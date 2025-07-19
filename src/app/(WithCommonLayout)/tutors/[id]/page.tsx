@@ -23,10 +23,14 @@ const TutorDetailsPage = () => {
             }
         };
 
-        if (params.id) {
-            fetchTutorDetails(params.id as string);
+        const id = Array.isArray(params.id) ? params.id[0] : params.id;
+        if (id) {
+            fetchTutorDetails(id as string);
         }
     }, [params.id]);
+
+
+    console.log(tutor, "tutor details");
 
 
     if (!tutor) {
