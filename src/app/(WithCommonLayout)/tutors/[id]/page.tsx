@@ -30,8 +30,6 @@ const TutorDetailsPage = () => {
     }, [params.id]);
 
 
-    console.log(tutor, "tutor details");
-
 
     if (!tutor) {
         return (
