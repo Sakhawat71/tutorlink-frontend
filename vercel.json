@@ -1,8 +1,7 @@
 {
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/"
-        }
-    ]
+  "functions": {
+    "api/auth/[...nextauth]/route.ts": {
+      "runtime": "nodejs18.x"
+    }
+  }
 }

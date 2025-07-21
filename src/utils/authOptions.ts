@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
-
+                console.log("Credentials login attempt", credentials);
                 const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/auth/login`, {
                     method: 'POST',
                     body: JSON.stringify(credentials),
