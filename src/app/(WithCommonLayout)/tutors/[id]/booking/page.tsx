@@ -1,11 +1,18 @@
-// import BookSession from '@/components/modules/booking/BookSession';
+"use client";
+
 import React from 'react';
+import { useTutor } from '@/providers/TutorProvider';
+import { BookSession } from '@/components/modules/booking/BookSession';
+
 
 const BookTutorPage = () => {
+
+    const {data : tutor} = useTutor();
+    console.log(tutor);
+
     return (
         <div>
-            book a tutor page
-            {/* <BookSession /> */}
+            <BookSession tutor={tutor?.data}/>
         </div>
     );
 };

@@ -12,7 +12,7 @@ export const createTutorProfile = async (payload: any) => {
             body: JSON.stringify(payload),
         });
         revalidateTag("tutor-profile");
-        console.log("in service ", res);
+        // console.log("in service ", res);
         return await res.json();
 
     } catch (error) {

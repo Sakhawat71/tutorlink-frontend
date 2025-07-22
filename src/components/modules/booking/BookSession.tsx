@@ -10,7 +10,7 @@ interface Props {
   tutor: ITutor;
 }
 
-export default function BookSession({ tutor }: Props) {
+export const BookSession = ({ tutor }: Props) => {
   const router = useRouter();
   const [selectedSlot, setSelectedSlot] = useState<IAvailability | null>(null);
   const [subject, setSubject] = useState("");
@@ -30,7 +30,7 @@ export default function BookSession({ tutor }: Props) {
     };
 
     // TODO: Replace with real API call
-    console.log("Booking payload:", payload);
+    // console.log("Booking payload:", payload);
     router.push("/checkout"); // or initiate payment
   };
 
@@ -116,8 +116,8 @@ export default function BookSession({ tutor }: Props) {
                     key={idx}
                     onClick={() => setSelectedSlot(slot)}
                     className={`border p-3 rounded text-sm ${selectedSlot === slot
-                        ? "border-indigo-600 bg-indigo-50"
-                        : "hover:border-indigo-300"
+                      ? "border-indigo-600 bg-indigo-50"
+                      : "hover:border-indigo-300"
                       }`}
                   >
                     {slot.day.slice(0, 3)} — {slot.startTime} to {slot.endTime}

@@ -66,7 +66,7 @@ export const TutorSignupForm = () => {
 
             toast.success(`${res.message}! Logging you in...`, { id: toastId });
 
-            console.log(res.data.isCompleteProfile);
+            // console.log(res.data.isCompleteProfile);
 
             // Login after successful registration
             const result = await signIn("credentials", {

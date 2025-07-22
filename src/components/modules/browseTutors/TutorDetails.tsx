@@ -6,17 +6,20 @@ import { Button } from "@/components/ui/button";
 import { ITutor } from "@/types/tutor.type";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+// import BookSession from "../booking/BookSession";
+// import { useState } from "react";
 
 interface TutorDetailsProps {
     tutor: ITutor;
 }
 
 export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
-    // Mock data for additional details
+
+    // const [openBooking, setOpenBooking] = useState(false);
 
     const session = useSession();
     const user = session?.data?.user;
-    console.log(session?.data?.user);
+    // console.log(session?.data?.user);
 
     const rating = 4.9;
     const reviews = 24;
@@ -75,13 +78,31 @@ export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
                             <div className="w-full mt-6 space-y-3">
                                 {
                                     user && user?.role === "student" ? (
+
                                         <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12">
                                             <Link
                                                 href={`/tutors/${tutor.id}/booking`}
                                             >
                                                 Book a Lesson
                                             </Link>
-                                        </Button>)
+                                        </Button>
+
+                                        // <>
+                                        //     <Button
+                                        //         onClick={() => setOpenBooking(true)}
+                                        //         className="w-full bg-blue-600 hover:bg-blue-700 h-12"
+                                        //     >
+                                        //         Book a Lesson
+                                        //     </Button>
+
+                                        //     {openBooking && (
+                                        //         <BookSession
+                                        //             tutor={tutor}
+                                        //             onClose={() => setOpenBooking(false)}
+                                        //         />
+                                        //     )}
+                                        // </>
+                                    )
                                         : (
                                             <p className="text-red-300">Only registered students can book tutors.</p>
                                         )
