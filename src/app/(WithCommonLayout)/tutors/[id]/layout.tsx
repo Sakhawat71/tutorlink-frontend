@@ -3,10 +3,12 @@ import { getTutorDetails } from "@/services/TutorProfile";
 import { FadeLoader } from "react-spinners";
 
 
-export default async function TutorLayout({ params, children }: any) {
-    const tutor = await getTutorDetails(params.id);
+const TutorLayout = async (
+    { params, children }: { params: { id: string }, children: React.ReactNode }
+) => {
 
-    // console.log('tutor in layout ', tutor);
+    const tutor = await getTutorDetails(params.id);
+    console.log('tutor in layout ', tutor);
 
     if (!tutor) {
         return (
@@ -21,4 +23,6 @@ export default async function TutorLayout({ params, children }: any) {
             <TutorProvider tutor={tutor}>{children}</TutorProvider>
         </div>
     );
-}
+};
+
+export default TutorLayout;

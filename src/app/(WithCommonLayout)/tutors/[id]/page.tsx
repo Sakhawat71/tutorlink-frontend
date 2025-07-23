@@ -2,10 +2,10 @@
 
 import { TutorDetailsComponent } from '@/components/modules/browseTutors/TutorDetails';
 import { useTutor } from '@/providers/TutorProvider';
-import { getTutorDetails } from '@/services/TutorProfile';
+// import { getTutorDetails } from '@/services/TutorProfile';
 import { ITutor } from '@/types';
-import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+// import { useParams } from 'next/navigation';
+// import React, { useEffect, useState } from 'react';
 import { FadeLoader } from 'react-spinners';
 
 
