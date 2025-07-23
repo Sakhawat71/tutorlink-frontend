@@ -55,14 +55,15 @@ export const BookSession = ({ tutor }: Props) => {
             subject,
         };
 
-        console.log("Booking payload:", payload);
+        // console.log("Booking payload:", payload);
 
         try {
             const toastid = toast.loading("Creating booking session...")
             const res = await createBookingSession(payload);
             if (res.success) {
-                console.log(res);
+                // console.log(res);
                 toast.success(res.message || "Booking created successfully", { id: toastid })
+                router.push("/payment");
             } else {
                 toast.error(res.message || "Booking faield ", { id: toastid })
                 console.error("Booking failed:", res);
