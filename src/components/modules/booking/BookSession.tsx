@@ -10,6 +10,12 @@ interface Props {
   tutor: ITutor;
 }
 
+//  studentId
+//   tutorId
+//   date
+//   duration
+//   price 
+
 export const BookSession = ({ tutor }: Props) => {
   const router = useRouter();
   const [selectedSlot, setSelectedSlot] = useState<IAvailability | null>(null);
