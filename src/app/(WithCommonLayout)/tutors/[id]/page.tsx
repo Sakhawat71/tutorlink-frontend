@@ -3,7 +3,7 @@
 import { TutorDetailsComponent } from '@/components/modules/browseTutors/TutorDetails';
 import { useTutor } from '@/providers/TutorProvider';
 // import { getTutorDetails } from '@/services/TutorProfile';
-import { ITutor } from '@/types';
+// import { ITutor } from '@/types';
 // import { useParams } from 'next/navigation';
 // import React, { useEffect, useState } from 'react';
 import { FadeLoader } from 'react-spinners';
@@ -29,8 +29,7 @@ const TutorDetailsPage = () => {
     //     }
     // }, [params.id]);
 
-    const data = useTutor();
-    const tutor = data?.data as ITutor;
+    const tutor = useTutor();
 
     if (!tutor) {
         return (

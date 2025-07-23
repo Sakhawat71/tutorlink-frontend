@@ -7,10 +7,10 @@ const TutorLayout = async (
     { params, children }: { params: { id: string }, children: React.ReactNode }
 ) => {
 
-    const tutor = await getTutorDetails(params.id);
-    console.log('tutor in layout ', tutor);
+    const tutorData = await getTutorDetails(params.id);
+    const tutor = tutorData?.data || null;
 
-    if (!tutor) {
+    if (!tutorData || null) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <FadeLoader />
