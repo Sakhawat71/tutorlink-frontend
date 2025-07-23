@@ -8,6 +8,8 @@ import { Clock, MapPin } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { createBookingSession } from "@/services/Booking";
+import { toast } from "sonner";
 
 interface Props {
     tutor: ITutor;
@@ -41,19 +43,33 @@ export const BookSession = ({ tutor }: Props) => {
         const anyError = Object.values(hasErrors).some((val) => val);
         if (anyError) return;
 
+        if (!selectedSlot || !selectedSlot.id || !selectedDate) return;
+
         const payload = {
             tutorId: tutor.id,
             studentId,
-            date: selectedDate?.toISOString(),
+            selectedSlotId: selectedSlot.id,
+            date: selectedDate.toISOString(),
             duration,
             price,
             subject,
-            selectedSlotId: selectedSlot?.id,
         };
 
         console.log("Booking payload:", payload);
 
-        // TODO: call your booking API or go to checkout
+        try {
+            const toastid = toast.loading("Creating booking session...")
+            const res = await createBookingSession(payload);
+            if (res.success) {
+                console.log(res);
+                toast.success(res.message || "Booking created successfully", { id: toastid })
+            } else {
+                toast.error(res.message || "Booking faield ", { id: toastid })
+                console.error("Booking failed:", res);
+            }
+        } catch (error) {
+            console.error("Error creating booking session:", error);
+        }
     };
 
     const selectedDayName = selectedDate
