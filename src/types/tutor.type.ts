@@ -15,6 +15,8 @@ export interface ITutor {
 }
 
 export interface IAvailability {
+    id: string;
+    tutorId: string;
     day: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
     startTime: string; // e.g., "10:00"
     endTime: string;   // e.g., "12:00"

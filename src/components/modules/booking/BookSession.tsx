@@ -5,22 +5,22 @@ import { ITutor, IAvailability } from "@/types/tutor.type";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Clock, MapPin } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 interface Props {
   tutor: ITutor;
 }
 
-//  studentId
-//   tutorId
 //   date
-//   duration
-//   price 
 
 export const BookSession = ({ tutor }: Props) => {
   const router = useRouter();
+  // const [selectedSlot, setSelectedSlot] = useState<IAvailability | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<IAvailability | null>(null);
   const [subject, setSubject] = useState("");
   const [duration, setDuration] = useState(60);
+  const session = useSession();
+  const studentId = session.data?.user?.id || "";
 
   const price = tutor.hourlyRate * (duration / 60);
 
@@ -29,15 +29,18 @@ export const BookSession = ({ tutor }: Props) => {
 
     const payload = {
       tutorId: tutor.id,
-      date: new Date(), // replace with actual datetime from selected slot
+      studentId,
+      date: new Date(),
       duration,
       price,
       subject,
+      selectedSlotId : selectedSlot.id
     };
+    console.log("Booking payload:", payload);
+    // console.log(session.data?.user);
 
     // TODO: Replace with real API call
-    // console.log("Booking payload:", payload);
-    router.push("/checkout"); // or initiate payment
+    // router.push("/checkout");
   };
 
   return (
