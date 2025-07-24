@@ -141,7 +141,7 @@ const Testimonials = () => {
     }, [instanceRef]);
 
     return (
-        <section className="bg-[#6161F2] py-14">
+        <section className="bg-gradient-to-r from-blue-500 to-indigo-600 py-14">
             <div className="container mx-auto px-4">
                 <h2 className="text-white text-3xl md:text-5xl font-bold text-center my-10">
                     What Our Users Say
