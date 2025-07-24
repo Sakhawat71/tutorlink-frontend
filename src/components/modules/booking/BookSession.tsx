@@ -83,7 +83,7 @@ export const BookSession = ({ tutor }: Props) => {
 
 
     if (session.status === "loading") {
-        return <div className="text-center py-10">
+        return <div className="flex justify-center items-center h-screen">
             <HashLoader />
         </div>;
     }
