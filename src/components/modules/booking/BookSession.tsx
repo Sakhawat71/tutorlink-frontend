@@ -10,6 +10,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { createBookingSession } from "@/services/Booking";
 import { toast } from "sonner";
+import { HashLoader } from "react-spinners";
 
 interface Props {
     tutor: ITutor;
@@ -28,6 +29,9 @@ export const BookSession = ({ tutor }: Props) => {
     });
 
     const session = useSession();
+    console.log(session); // 
+
+
     const studentId = session.data?.user?.id || "";
     const price = tutor.hourlyRate * (duration / 60);
 
@@ -76,6 +80,18 @@ export const BookSession = ({ tutor }: Props) => {
     const selectedDayName = selectedDate
         ? new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(selectedDate)
         : "";
+
+
+    if (session.status === "loading") {
+        return <div className="text-center py-10">
+            <HashLoader />
+        </div>;
+    }
+
+    if (session.status === "unauthenticated") {
+        router.push("/login");
+        return null;
+    }
 
     return (
         <div className="max-w-6xl mx-auto py-8 px-4">
