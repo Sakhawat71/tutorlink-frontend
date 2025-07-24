@@ -44,12 +44,12 @@ const Banner = () => {
                             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                                 <Link href="/student-signup">
                                     <Button className="rounded-full px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-white text-indigo-600 hover:bg-gray-100">
-                                        Sign Up as a Student
+                                        Find Tutor
                                     </Button>
                                 </Link>
                                 <Link href="/tutor-signup">
                                     <Button className="rounded-full px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-indigo-700 hover:bg-indigo-800">
-                                        Register as a Tutor
+                                        Become a Tutor
                                     </Button>
                                 </Link>
                             </div>
