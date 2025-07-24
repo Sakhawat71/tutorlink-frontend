@@ -11,7 +11,7 @@ import {
 
 const FaqHome = () => {
     return (
-        <section className="bg-gray-50 py-10">
+        <section className="bg-gray-50 py-10 md:mx-5">
 
             <h2 className=" text-center text-3xl lg:text-4xl font-bold text-gray-900">
                 Wherever you want to learn
@@ -81,7 +81,7 @@ const FaqHome = () => {
                     </div>
 
                     {/* FAQ Image */}
-                    <div className="w-full lg:w-1/2">
+                    <div className="w-full lg:w-1/2 hidden lg:block">
                         <Image
                             alt="Student asking a question"
                             src="https://i.ibb.co/BHQwz0Sq/medium-shot-kid-taking-notes.jpg"
