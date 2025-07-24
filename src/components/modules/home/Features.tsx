@@ -1,5 +1,9 @@
 import { Card, CardContent } from '@/components/ui/card';
+import Image from 'next/image';
 import React from 'react';
+import payment from '@/assets/icons/secure-payment.png';
+import verified from '@/assets/icons/identify.png';
+import tutors from '@/assets/icons/virtual-class.png';
 
 const Features = () => {
     return (
@@ -10,6 +14,15 @@ const Features = () => {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     <Card className="text-center p-4 sm:p-6">
+
+                        <div className='flex justify-center'>
+                            <Image
+                                src={tutors}
+                                alt='icons'
+                                width={60}
+                                height={60}
+                            />
+                        </div>
                         <CardContent>
                             <h3 className="text-lg sm:text-xl font-semibold mb-2">Find Tutors Fast</h3>
                             <p className="text-sm sm:text-base text-gray-600">
@@ -17,7 +30,16 @@ const Features = () => {
                             </p>
                         </CardContent>
                     </Card>
+
                     <Card className="text-center p-4 sm:p-6">
+                        <div className='flex justify-center'>
+                            <Image
+                                src={payment}
+                                alt='icons'
+                                width={60}
+                                height={60}
+                            />
+                        </div>
                         <CardContent>
                             <h3 className="text-lg sm:text-xl font-semibold mb-2">Secure Payments</h3>
                             <p className="text-sm sm:text-base text-gray-600">
@@ -25,7 +47,16 @@ const Features = () => {
                             </p>
                         </CardContent>
                     </Card>
+
                     <Card className="text-center p-4 sm:p-6">
+                        <div className='flex justify-center'>
+                            <Image
+                                src={verified}
+                                alt='icons'
+                                width={60}
+                                height={60}
+                            />
+                        </div>
                         <CardContent>
                             <h3 className="text-lg sm:text-xl font-semibold mb-2">Verified Profiles</h3>
                             <p className="text-sm sm:text-base text-gray-600">
