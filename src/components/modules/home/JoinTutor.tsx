@@ -8,7 +8,20 @@ import img from '@/assets/ext/online-class.jpg'
 const JoinTutor = () => {
     return (
         <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16 px-4 sm:px-6 lg:px-20">
-            <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
+            <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-24">
+
+                {/* Image */}
+                <div className="flex justify-center lg:justify-end w-full max-w-md">
+                    <Image
+                        src={img}
+                        alt="Become a Tutor"
+                        width={500}
+                        height={400}
+                        className="w-full h-auto object-contain rounded-3xl"
+                        priority
+                    />
+                </div>
+
                 {/* Text */}
                 <div className="text-center lg:text-left max-w-xl">
                     <h2 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight">
@@ -25,17 +38,7 @@ const JoinTutor = () => {
                     </Link>
                 </div>
 
-                {/* Image */}
-                <div className="flex justify-center lg:justify-end w-full max-w-md">
-                    <Image
-                        src={img}
-                        alt="Become a Tutor"
-                        width={500}
-                        height={400}
-                        className="w-full h-auto object-contain rounded-3xl"
-                        priority
-                    />
-                </div>
+
             </div>
         </section>
     );
