@@ -18,9 +18,19 @@ const BrowseTutors = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const res = await getTutorProfiles('');
-            setTutors(res.data.result)
+            // const res = await getTutorProfiles('');
+            // setTutors(res.data.result)
             // console.log(res);
+            setIsLoading(true)
+            try {
+                const res = await getTutorProfiles(searchTerm);
+                setTutors(res.data.result);
+            } catch (err) {
+                console.error(err);
+            }
+            finally {
+                setIsLoading(false)
+            }
         };
         fetchData();
     }, [])
@@ -49,13 +59,6 @@ const BrowseTutors = () => {
         );
     }
 
-    if (!tutors) {
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <p className="text-gray-500">No tutors found</p>
-            </div>
-        );
-    }
 
     return (
         <div className="md:mx-10">
@@ -78,6 +81,13 @@ const BrowseTutors = () => {
             </div>
 
             <h1>Browser Tutors {tutors?.length}</h1>
+
+            {tutors.length === 0 &&
+                <div className="flex items-center justify-center mt-20">
+                    <p className="text-red-300 text-5xl">No tutors found</p>
+                </div>
+            }
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
                 {tutors?.map(tutor => (
                     <TutorCard
