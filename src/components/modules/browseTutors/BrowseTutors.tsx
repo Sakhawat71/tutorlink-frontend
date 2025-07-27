@@ -11,21 +11,37 @@ import { Button } from "@/components/ui/button";
 
 const BrowseTutors = () => {
 
-    const [tutorProfiles, setTutorProfile] = useState<ITutor[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [tutors, setTutors] = useState<ITutor[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
         async function fetchData() {
-            const res = await getTutorProfiles();
-            setTutorProfile(res.data.result)
+            const res = await getTutorProfiles('');
+            setTutors(res.data.result)
             // console.log(res);
         };
         fetchData();
     }, [])
 
+    const handleSearch = async () => {
+        setIsLoading(true)
+        try {
+            const res = await getTutorProfiles(searchTerm);
+            setTutors(res.data.result);
+        } catch (err) {
+            console.error(err);
+        }
+        finally {
+            setIsLoading(false)
+        }
+    };
+
     // console.log(tutorProfiles);
 
     // loading 
-    if (tutorProfiles?.length === 0) {
+    if (isLoading) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <HashLoader />
@@ -33,7 +49,7 @@ const BrowseTutors = () => {
         );
     }
 
-    if (!tutorProfiles) {
+    if (!tutors) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <p className="text-gray-500">No tutors found</p>
@@ -47,18 +63,23 @@ const BrowseTutors = () => {
             <div className="my-10 max-w-sm md:max-w-lg mx-auto flex items-center gap-2 bg-white rounded-full p-2 shadow-lg">
                 <Search className="h-5 w-5 text-gray-500 ml-2" />
                 <Input
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     type="text"
                     placeholder="Search by subject, grade, or tutor name"
                     className="flex-1 border-none focus:ring-0 text-gray-900 placeholder-gray-400"
                 />
-                <Button className="rounded-full px-4 sm:px-6 bg-indigo-700 hover:bg-indigo-800">
+                <Button
+                    onClick={handleSearch}
+                    className="rounded-full px-4 sm:px-6 bg-indigo-700 hover:bg-indigo-800"
+                >
                     Search
                 </Button>
             </div>
 
-            <h1>Browser Tutors {tutorProfiles?.length}</h1>
+            <h1>Browser Tutors {tutors?.length}</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-                {tutorProfiles?.map(tutor => (
+                {tutors?.map(tutor => (
                     <TutorCard
                         key={tutor.id}
                         tutor={tutor}
@@ -70,39 +91,3 @@ const BrowseTutors = () => {
 };
 
 export default BrowseTutors;
-
-
-            // <div className="flex flex-col md:flex-row gap-4 justify-between items-center px-6">
-
-            //     <input
-            //         type="text"
-            //         placeholder="Search by name..."
-            //         // value={searchQuery}
-            //         // onChange={(e) => setSearchQuery(e.target.value)}
-            //         className="border px-4 py-2 rounded w-full md:w-1/3"
-            //     />
-
-
-            //     <select
-            //         // value={selectedSubject}
-            //         // onChange={(e) => setSelectedSubject(e.target.value)}
-            //         className="border px-4 py-2 rounded w-full md:w-1/4"
-            //     >
-            //         <option value="">All Subjects</option>
-            //         <option value="math">Math</option>
-            //         <option value="english">English</option>
-            //         <option value="physics">Physics</option>
-            //         {/* Add more subjects based on your data */}
-            //     </select>
-
-
-            //     <select
-            //         // value={sortOption}
-            //         // onChange={(e) => setSortOption(e.target.value)}
-            //         className="border px-4 py-2 rounded w-full md:w-1/4"
-            //     >
-            //         <option value="name_asc">Name A-Z</option>
-            //         <option value="name_desc">Name Z-A</option>
-            //         <option value="rating_desc">Highest Rated</option>
-            //     </select>
-            // </div>

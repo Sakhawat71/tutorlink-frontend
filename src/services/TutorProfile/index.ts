@@ -21,9 +21,10 @@ export const createTutorProfile = async (payload: any) => {
 };
 
 
-export const getTutorProfiles = async () => {
+export const getTutorProfiles = async (searchTerm : string) => {
+    console.log(searchTerm);
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/tutor`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/tutor?searchTerm=${searchTerm}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
