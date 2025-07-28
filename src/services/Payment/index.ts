@@ -6,20 +6,20 @@ import { cookies } from "next/headers";
 
 export const createPaymentIntent = async (id: string) => {
     const accessToken = (await cookies()).get("accessToken")?.value;
-    const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/payment/initiate-payment/${id}`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/payment/init-payment/${id}`, {
         method: "POST",
         headers: {
             "Authorization": accessToken!,
         }
-    })
-    console.log(result)
+    });
+    // console.log(result);
     return await result.json();
 };
 
 
-export const get_user_payments = async () => {
+export const getUserPayments = async () => {
     const accessToken = (await cookies()).get("accessToken")?.value;
-    const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/payment`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/payment`, {
         method: "GET",
         headers: {
             "Authorization": accessToken!,
@@ -27,9 +27,9 @@ export const get_user_payments = async () => {
     })
     return await result.json();
 }
-export const get_my_payments = async () => {
+export const getMyPayments = async () => {
     const accessToken = (await cookies()).get("accessToken")?.value;
-    const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/payment/my-payment`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/payment/my-payment`, {
         method: "GET",
         headers: {
             "Authorization": accessToken!,
@@ -44,7 +44,7 @@ export const validatePayment = async (transactionId: string) => {
     const accessToken = (await cookies()).get("accessToken")?.value;
 
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/payment/validate-payment?tran_id=${transactionId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/payment/validate-payment?tran_id=${transactionId}`, {
             method: 'GET',
             headers: {
                 "Authorization": accessToken || '',

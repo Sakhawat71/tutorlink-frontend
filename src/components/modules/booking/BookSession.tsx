@@ -11,6 +11,8 @@ import "react-calendar/dist/Calendar.css";
 import { createBookingSession } from "@/services/Booking";
 import { toast } from "sonner";
 import { HashLoader } from "react-spinners";
+import { createPaymentIntent } from "@/services/Payment";
+
 
 interface Props {
     tutor: ITutor;
@@ -29,7 +31,7 @@ export const BookSession = ({ tutor }: Props) => {
     });
 
     const session = useSession();
-    console.log(session); // 
+    // console.log(session);
 
 
     const studentId = session.data?.user?.id || "";
@@ -64,10 +66,22 @@ export const BookSession = ({ tutor }: Props) => {
         try {
             const toastid = toast.loading("Creating booking session...")
             const res = await createBookingSession(payload);
+            // console.log(res);
+
             if (res.success) {
                 // console.log(res);
-                toast.success(res.message || "Booking created successfully", { id: toastid })
-                router.push("/payment");
+                toast.success(res.message || "Booking created successfully", { id: toastid });
+                // console.log(res.data.id);
+                const payment = await createPaymentIntent(res.data.id as string)
+                // console.log(payment);
+                if (payment.success) {
+                    toast.success(payment.message || "Payment initialized successfully.", { id: toastid });
+                    router.push(payment.data.paymentUrl);
+                }
+                // router.push("/payment");
+
+
+
             } else {
                 toast.error(res.message || "Booking faield ", { id: toastid })
                 console.error("Booking failed:", res);
