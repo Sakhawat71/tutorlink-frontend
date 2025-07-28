@@ -1,9 +1,10 @@
+import StudentDashboardComponent from '@/components/modules/dashboard/Student/DashboardComponent';
 import React from 'react';
 
 const StudentDashboardPage = () => {
     return (
         <div>
-            <h2>hello world</h2>
+            <StudentDashboardComponent />
         </div>
     );
 };
