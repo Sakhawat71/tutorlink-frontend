@@ -1,7 +1,7 @@
 "use client";
 
 import React, { use, useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaArrowRight, FaSpinner, FaExclamationTriangle, FaHome, FaUserCircle } from 'react-icons/fa';
@@ -14,7 +14,7 @@ interface Props {
 
 
 const PaymentSuccessPage = ({ params }: Props) => {
-    const searchParams = useSearchParams();
+    // const searchParams = useSearchParams();
     const [isLoading, setIsLoading] = useState(true);
     const [isVerified, setIsVerified] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -106,7 +106,7 @@ const PaymentSuccessPage = ({ params }: Props) => {
                                     <FaHome className="mr-2" />
                                     Go Home
                                 </Link>
-                                <Link href="/plans" className="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-md flex items-center transition-colors duration-200">
+                                <Link href="/" className="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-md flex items-center transition-colors duration-200">
                                     Try Again
                                     <FaArrowRight className="ml-2" />
                                 </Link>
@@ -123,7 +123,7 @@ const PaymentSuccessPage = ({ params }: Props) => {
                                 <motion.div variants={itemVariants}>
                                     <FaCheckCircle className="text-green-400 text-5xl mx-auto mb-4" />
                                     <h1 className="text-2xl font-bold text-white">Payment Successful!</h1>
-                                    <p className="text-gray-300 mt-2">Your premium subscription has been activated</p>
+                                    <p className="text-gray-300 mt-2">Your Booking has been activated</p>
                                 </motion.div>
                             </div>
 
@@ -134,7 +134,7 @@ const PaymentSuccessPage = ({ params }: Props) => {
                                     className="mb-8 text-center"
                                 >
                                     <p className="text-gray-600">
-                                        Thank you for your payment. Your transaction has been completed successfully, and your premium subscription is now active.
+                                        Thank you for your payment. Your transaction has been completed successfully, and your Booking is now active.
                                     </p>
                                 </motion.div>
 
@@ -163,8 +163,8 @@ const PaymentSuccessPage = ({ params }: Props) => {
                                                     <span className="font-medium text-green-600">Completed</span>
                                                 </div>
                                                 <div className="flex justify-between pb-2">
-                                                    <span className="text-gray-600">Subscription:</span>
-                                                    <span className="font-medium text-gray-800">{transactionDetails.planName || "Premium"}</span>
+                                                    <span className="text-gray-600">Booking:</span>
+                                                    <span className="font-medium text-gray-800">{transactionDetails.planName || "CONFIRMED"}</span>
                                                 </div>
                                             </>
                                         )}
@@ -179,15 +179,15 @@ const PaymentSuccessPage = ({ params }: Props) => {
                                     <ul className="space-y-2 text-gray-600">
                                         <li className="flex items-start">
                                             <FaCheckCircle className="text-green-500 mt-1 mr-2 flex-shrink-0" />
-                                            <span>Your premium features are now unlocked and ready to use</span>
+                                            <span>A receipt has been sent to your email address.</span>
                                         </li>
                                         <li className="flex items-start">
                                             <FaCheckCircle className="text-green-500 mt-1 mr-2 flex-shrink-0" />
-                                            <span>You can now access premium reviews and insights</span>
+                                            <span>You can manage your bookings and track sessions from your dashboard.</span>
                                         </li>
                                         <li className="flex items-start">
                                             <FaCheckCircle className="text-green-500 mt-1 mr-2 flex-shrink-0" />
-                                            <span>A receipt has been sent to your email address</span>
+                                            <span>Need help? Our support team is ready to assist you anytime.</span>
                                         </li>
                                     </ul>
                                 </motion.div>
@@ -200,9 +200,9 @@ const PaymentSuccessPage = ({ params }: Props) => {
                                         <FaHome className="mr-2" />
                                         Return to Home
                                     </Link>
-                                    <Link href="/billing" className="px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-md flex items-center justify-center transition-colors duration-200">
+                                    <Link href="/tutor" className="px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-md flex items-center justify-center transition-colors duration-200">
                                         <FaUserCircle className="mr-2" />
-                                        Go to Billing
+                                        Go to Tutor
                                     </Link>
                                 </motion.div>
                             </div>
@@ -219,7 +219,7 @@ const PaymentSuccessPage = ({ params }: Props) => {
                 >
                     <p>If you have any questions about your payment or subscription, please contact our support team.</p>
                     <p className="mt-2">
-                        <a href="mailto:support@reviewhub.com" className="text-amber-600 hover:underline">support@reviewhub.com</a> | <a href="tel:+1234567890" className="text-amber-600 hover:underline">+1 (234) 567-890</a>
+                        <a href="#" className="text-amber-600 hover:underline">support@tutorlink.com</a> | <a href="tel:+1234567890" className="text-amber-600 hover:underline">+1 (234) 567-890</a>
                     </p>
                 </motion.div>
             </div>
@@ -228,74 +228,3 @@ const PaymentSuccessPage = ({ params }: Props) => {
 };
 
 export default PaymentSuccessPage;
-
-// "use server";
-
-// import { authOptions } from "@/utils/authOptions";
-// import { getServerSession } from "next-auth";
-
-// export const createPaymentIntent = async (id: string) => {
-//     const session = await getServerSession(authOptions);
-//     const accessToken = session?.accessToken;
-
-//     const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/payment/initiate-payment/${id}`, {
-//         method: "POST",
-//         headers: {
-//             Authorization: accessToken || "",
-//         },
-//     });
-
-//     return await result.json();
-// };
-
-// export const get_user_payments = async () => {
-//     const session = await getServerSession(authOptions);
-//     const accessToken = session?.accessToken;
-
-//     const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/payment`, {
-//         method: "GET",
-//         headers: {
-//             Authorization: accessToken || "",
-//         },
-//     });
-
-//     return await result.json();
-// };
-
-// export const get_my_payments = async () => {
-//     const session = await getServerSession(authOptions);
-//     const accessToken = session?.accessToken;
-
-//     const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/payment/my-payment`, {
-//         method: "GET",
-//         headers: {
-//             Authorization: accessToken || "",
-//         },
-//     });
-
-//     return await result.json();
-// };
-
-// export const validatePayment = async (transactionId: string) => {
-//     const session = await getServerSession(authOptions);
-//     const accessToken = session?.accessToken;
-
-//     try {
-//         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/payment/validate-payment?tran_id=${transactionId}`, {
-//             method: "GET",
-//             headers: {
-//                 Authorization: accessToken || "",
-//                 "Content-Type": "application/json",
-//             },
-//         });
-
-//         return await res.json();
-//     } catch (error) {
-//         console.error("Payment validation error:", error);
-//         return {
-//             success: false,
-//             message: "Failed to validate payment",
-//             data: null,
-//         };
-//     }
-// };
