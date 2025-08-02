@@ -12,7 +12,7 @@ interface Booking {
     tutorName: string;
     subject: string;
     date: string;
-    time: string;
+    selectedSlot: object;
     status: 'CONFIRMED' | 'PENDING' | 'CANCELLED';
 }
 
@@ -112,7 +112,7 @@ const StudentBookings = () => {
                                 <strong>Date:</strong> {booking.date}
                             </p>
                             <p>
-                                <strong>Time:</strong> {booking.time}
+                                <strong>Time:</strong> {booking.selectedSlot.startTime}
                             </p>
                             <div className="mt-4 flex justify-end">
                                 <Button variant="outline">View Details</Button>
