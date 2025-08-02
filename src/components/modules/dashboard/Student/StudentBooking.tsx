@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { HashLoader } from 'react-spinners';
 import { Button } from '@/components/ui/button';
+import { myBookings } from '@/services/Booking';
+import { useSession } from 'next-auth/react';
 
 interface Booking {
     id: string;
@@ -17,31 +19,49 @@ interface Booking {
 const StudentBookings = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
+    const sessing = useSession();
+    const userId = sessing.data?.user?.id || '';
 
     useEffect(() => {
-        // Simulate fetching
-        setTimeout(() => {
-            setBookings([
-                {
-                    id: '1',
-                    tutorName: 'John Doe',
-                    subject: 'Math',
-                    date: '2025-08-02',
-                    time: '10:00 AM',
-                    status: 'CONFIRMED'
-                },
-                {
-                    id: '2',
-                    tutorName: 'Jane Smith',
-                    subject: 'English',
-                    date: '2025-08-04',
-                    time: '2:00 PM',
-                    status: 'PENDING'
-                }
-            ]);
-            setLoading(false);
-        }, 1000);
-    }, []);
+        const fetchBookings = async () => {
+            try {
+                const data = await myBookings(userId);
+                console.log(data.data);
+                setBookings(data?.data || []);
+            } catch (error) {
+                console.error('Failed to fetch bookings:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchBookings();
+    }, [userId]);
+
+
+    // useEffect(() => {
+    //     // Simulate fetching
+    //     setTimeout(() => {
+    //         setBookings([
+    //             {
+    //                 id: '1',
+    //                 tutorName: 'John Doe',
+    //                 subject: 'Math',
+    //                 date: '2025-08-02',
+    //                 time: '10:00 AM',
+    //                 status: 'CONFIRMED'
+    //             },
+    //             {
+    //                 id: '2',
+    //                 tutorName: 'Jane Smith',
+    //                 subject: 'English',
+    //                 date: '2025-08-04',
+    //                 time: '2:00 PM',
+    //                 status: 'PENDING'
+    //             }
+    //         ]);
+    //         setLoading(false);
+    //     }, 1000);
+    // }, []);
 
     if (loading) {
         return (
@@ -76,10 +96,10 @@ const StudentBookings = () => {
                                 <h2 className="font-semibold text-lg">{booking.subject}</h2>
                                 <span
                                     className={`px-3 py-1 text-sm rounded-full ${booking.status === 'CONFIRMED'
-                                            ? 'bg-green-100 text-green-600'
-                                            : booking.status === 'PENDING'
-                                                ? 'bg-yellow-100 text-yellow-600'
-                                                : 'bg-red-100 text-red-600'
+                                        ? 'bg-green-100 text-green-600'
+                                        : booking.status === 'PENDING'
+                                            ? 'bg-yellow-100 text-yellow-600'
+                                            : 'bg-red-100 text-red-600'
                                         }`}
                                 >
                                     {booking.status}
