@@ -20,9 +20,9 @@ export const createBookingSession = async (payload: IBookingCreateInput) => {
     }
 };
 
-export const myBookings = async () => {
+export const myBookings = async (id: string) => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/booking/my-bookings`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/booking/my-bookings/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
