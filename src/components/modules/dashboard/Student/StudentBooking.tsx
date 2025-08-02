@@ -15,7 +15,9 @@ import {
 
 interface Booking {
     id: string;
-    tutorName: string;
+    tutor: {
+        name: string;
+    };
     subject: string;
     date: string;
     selectedSlot: {
@@ -47,6 +49,7 @@ const StudentBookings = () => {
             try {
                 const data = await myBookings(userId);
                 setBookings(data?.data || []);
+                // console.log(data);
             } catch (error) {
                 console.error('Failed to fetch bookings:', error);
             } finally {
@@ -87,7 +90,11 @@ const StudentBookings = () => {
                         {bookings.map((booking) => (
                             <TableRow key={booking.id}>
                                 <TableCell>{booking.subject}</TableCell>
-                                <TableCell>{booking.tutorName}</TableCell>
+                                <TableCell>
+                                    {
+                                        booking.tutor.name.slice(0, 15) + (booking.tutor.name.length > 15 ? '...' : '')
+                                    }
+                                </TableCell>
                                 <TableCell>{
                                     new Date(booking.date).toLocaleDateString('en-US', {
                                         year: 'numeric',
