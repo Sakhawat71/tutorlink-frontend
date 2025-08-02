@@ -30,6 +30,18 @@ const StudentBookings = () => {
     const session = useSession();
     const userId = session.data?.user?.id || '';
 
+    const formatTimeTo12Hour = (time: string) => {
+        const [hour, minute] = time.split(':');
+        const date = new Date();
+        date.setHours(Number(hour));
+        date.setMinutes(Number(minute));
+        return date.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+        });
+    };
+
     useEffect(() => {
         const fetchBookings = async () => {
             try {
@@ -83,9 +95,9 @@ const StudentBookings = () => {
                                         day: 'numeric',
                                     })
                                 }</TableCell>
-                                <TableCell>{
-                                    booking.selectedSlot.startTime
-                                }</TableCell>
+                                <TableCell>
+                                    {formatTimeTo12Hour(booking.selectedSlot.startTime)}
+                                </TableCell>
                                 <TableCell>
                                     <span
                                         className={`px-3 py-1 text-sm rounded-full ${booking.status === 'CONFIRMED'
