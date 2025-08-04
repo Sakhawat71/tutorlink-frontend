@@ -110,7 +110,8 @@ const CreateTutorProfile = () => {
     };
     // console.log("Submitted Data:", transformedData);
 
-    const res = await createTutorProfile(transformedData);
+    // const res = 
+    await createTutorProfile(transformedData);
     // console.log("res in tutor profile",res);
 
   };
