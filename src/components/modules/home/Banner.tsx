@@ -1,25 +1,41 @@
 "use client";
 
 import { useSession } from 'next-auth/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { Button } from '@/components/ui/button';
 import Router from 'next/router';
+// import { useRouter } from 'next/router';
 
 
 const Banner = () => {
 
     const { data: session } = useSession();
 
-    const handleSearch = (searchTerm: string) => {
+    // const handleSearch = (searchTerm: string) => {
+    //     console.log(searchTerm);
+    //     Router.push({
+    //         pathname: '/tutors',
+    //         query: { search: searchTerm }
+    //     });
+    // };
 
-        console.log(searchTerm);
+    const [query, setQuery] = useState('');
+    // const router = useRouter();
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!query.trim()) return;
+        console.log(query);
         // Router.push({
         //     pathname: '/tutors',
         //     query: { search: searchTerm }
         // });
+        Router.push("/tutors")
+        // Redirect to tutor page with query
+        // router.push(`/tutors?search=${encodeURIComponent(query.trim())}`);
     };
 
 
@@ -40,9 +56,11 @@ const Banner = () => {
 
                     {/* Search Bar */}
                     <form
+                        onSubmit={() => handleSearch}
                         className="max-w-md mx-auto flex items-center gap-2 bg-white rounded-full p-2 shadow-lg">
                         <Search className="h-5 w-5 text-gray-500 ml-2" />
                         <Input
+                            onChange={(e) => setQuery(e.target.value)}
                             type="text"
                             placeholder="Search by subject, grade, or tutor name"
                             className="flex-1 border-none focus:ring-0 text-gray-900 placeholder-gray-400"
