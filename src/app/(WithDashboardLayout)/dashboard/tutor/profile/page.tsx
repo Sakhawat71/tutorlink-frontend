@@ -1,11 +1,10 @@
-import React from 'react';
-import CreateTutorProfile from '@/components/modules/dashboard/Tutor/CreateTutorProfile';
+import TutorProfile from "@/components/modules/dashboard/Tutor/TutorProfile";
 
 const TutorProfilePage = async () => {
 
     return (
         <div>
-            <CreateTutorProfile />
+            <TutorProfile />
         </div>
     );
 };
