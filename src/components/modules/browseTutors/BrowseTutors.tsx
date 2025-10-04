@@ -48,18 +48,6 @@ const BrowseTutors = () => {
         }
     };
 
-    // console.log(tutorProfiles);
-
-    // loading 
-    if (isLoading) {
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <HashLoader />
-            </div>
-        );
-    }
-
-
     return (
         <div className="md:mx-10">
             {/* Search Bar */}
@@ -82,19 +70,23 @@ const BrowseTutors = () => {
 
             <h1>Browser Tutors {tutors?.length}</h1>
 
-            {tutors.length === 0 &&
-                <div className="flex items-center justify-center mt-20">
-                    <p className="text-red-300 text-5xl">No tutors found</p>
-                </div>
-            }
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-                {tutors?.map(tutor => (
-                    <TutorCard
-                        key={tutor.id}
-                        tutor={tutor}
-                    />
-                ))}
+                {isLoading ? (
+                    <div className="col-span-full flex items-center justify-center min-h-[200px]">
+                        <HashLoader />
+                    </div>
+                ) : tutors.length > 0 ? (
+                    tutors.map(tutor => (
+                        <TutorCard
+                            key={tutor.id}
+                            tutor={tutor}
+                        />
+                    ))
+                ) : (
+                    <div className="col-span-full flex items-center justify-center min-h-[200px]">
+                        <p className="text-red-400 text-2xl">No tutors found</p>
+                    </div>
+                )}
             </div>
         </div>
     );
