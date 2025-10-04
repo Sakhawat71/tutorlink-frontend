@@ -18,9 +18,6 @@ const BrowseTutors = () => {
 
     useEffect(() => {
         async function fetchData() {
-            // const res = await getTutorProfiles('');
-            // setTutors(res.data.result)
-            // console.log(res);
             setIsLoading(true)
             try {
                 const res = await getTutorProfiles(searchTerm);
