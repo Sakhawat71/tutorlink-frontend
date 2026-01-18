@@ -3,6 +3,7 @@
 import { getTutorDetails } from "@/services/TutorProfile";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import CreateTutorProfile from "./CreateTutorProfile";
 
 const TutorProfile = () => {
 
@@ -22,7 +23,7 @@ const TutorProfile = () => {
 
     return (
         <div>
-            
+            <CreateTutorProfile />
         </div>
     );
 };
