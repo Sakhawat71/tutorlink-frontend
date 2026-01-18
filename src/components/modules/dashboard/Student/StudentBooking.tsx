@@ -12,25 +12,17 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { Booking } from '@/types';
 
-interface Booking {
-    id: string;
-    tutor: {
-        name: string;
-    };
-    subject: string;
-    date: string;
-    selectedSlot: {
-        startTime: string;
-    };
-    status: 'CONFIRMED' | 'PENDING' | 'CANCELLED';
-}
 
 const StudentBookings = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
     const session = useSession();
     const userId = session.data?.user?.id || '';
+    console.log('user id',userId);
+    console.log('user session',session);
+
 
     const formatTimeTo12Hour = (time: string) => {
         const [hour, minute] = time.split(':');
@@ -49,7 +41,7 @@ const StudentBookings = () => {
             try {
                 const data = await myBookings(userId);
                 setBookings(data?.data || []);
-                // console.log(data);
+                console.log(data);
             } catch (error) {
                 console.error('Failed to fetch bookings:', error);
             } finally {

@@ -28,7 +28,7 @@ export const myBookings = async (id: string) => {
                 "Content-Type": "application/json",
             },
         });
-        revalidateTag("my-bookings");
+        revalidateTag("my-bookings",{});
         return await res.json();
     } catch (error) {
         return error;
