@@ -27,6 +27,8 @@ export default function TutorDashboardPage(
     const { data: session, status } = useSession();
     const router = useRouter();
 
+    console.log(session?.user?.role);
+
     // Redirect if not authenticated or not a tutor
     if (status === "loading") {
         return <div className="flex items-center justify-center h-screen">

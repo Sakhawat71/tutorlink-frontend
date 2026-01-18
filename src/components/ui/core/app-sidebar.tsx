@@ -104,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard/student">
+                            <Link href={`/dashboard/${userRole}`}>
                                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
                                     <User className="size-4" />
                                 </div>

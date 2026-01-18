@@ -110,9 +110,17 @@ const CreateTutorProfile = () => {
     };
     // console.log("Submitted Data:", transformedData);
 
-    // const res = 
-    await createTutorProfile(transformedData);
+    const res = await createTutorProfile(transformedData);
     // console.log("res in tutor profile",res);
+
+    if (res.success) {
+      toast.success("Tutor profile created successfully!");
+      // form.reset();
+      // setPreview(null);
+    } else {
+      toast.error(res.message || "Failed to create tutor profile.");
+    }
+
 
   };
 
