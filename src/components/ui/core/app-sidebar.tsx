@@ -77,8 +77,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             icon: <User className="h-4 w-4" />,
         },
         {
-            title: "Availability",
-            url: "/dashboard/tutor/availability",
+            title: "Reviews",
+            url: "/dashboard/tutor/reviews",
             icon: <Calendar className="h-4 w-4" />,
         },
         {

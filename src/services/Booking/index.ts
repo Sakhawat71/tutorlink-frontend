@@ -13,7 +13,7 @@ export const createBookingSession = async (payload: IBookingCreateInput) => {
             },
             body: JSON.stringify(payload),
         });
-        revalidateTag("booking-session");
+        revalidateTag("booking-session",{});
         return await res.json();
     } catch (error) {
         return error;
