@@ -27,7 +27,7 @@ export default function TutorDashboardPage(
     const { data: session, status } = useSession();
     const router = useRouter();
 
-    console.log(session?.user?.role);
+    // console.log(session?.user?.role);
 
     // Redirect if not authenticated or not a tutor
     if (status === "loading") {

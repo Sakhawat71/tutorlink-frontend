@@ -11,6 +11,8 @@ const TutorProfile = () => {
     const [user, setUser] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
 
+    console.log('uid in teacher ',session?.user?.id);
+
     useEffect(() => {
         if (status !== "authenticated" || !session?.user?.id) return;
 

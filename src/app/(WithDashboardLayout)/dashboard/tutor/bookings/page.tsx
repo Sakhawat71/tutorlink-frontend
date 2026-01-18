@@ -1,11 +1,14 @@
+import TutorBookings from '@/components/modules/dashboard/Tutor/TutorBookingComponent';
 import React from 'react';
 
-const page = () => {
+const TutorBookingPage = () => {
+
+    
     return (
         <div>
-            bookings
+            <TutorBookings />
         </div>
     );
 };
 
-export default page;
+export default TutorBookingPage;

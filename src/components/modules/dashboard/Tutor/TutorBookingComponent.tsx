@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { HashLoader } from 'react-spinners';
-import { myBookings } from '@/services/Booking';
 import {
     Table,
     TableBody,
@@ -13,43 +12,33 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import { Booking } from '@/types';
+import { bookingByEmail } from '@/services/Booking';
 
-
-const StudentBookings = () => {
+const TutorBookings = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
+
     const session = useSession();
-    const userId = session.data?.user?.id || '';
-    // console.log('user id',userId);
-    // console.log('user session',session);
-
-
-    const formatTimeTo12Hour = (time: string) => {
-        const [hour, minute] = time.split(':');
-        const date = new Date();
-        date.setHours(Number(hour));
-        date.setMinutes(Number(minute));
-        return date.toLocaleTimeString([], {
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-        });
-    };
+    // console.log(session);
+    const email = session.data?.user?.email || '';
 
     useEffect(() => {
+        if (!email) return;
+
         const fetchBookings = async () => {
             try {
-                const data = await myBookings(userId);
-                setBookings(data?.data || []);
+                const data = await bookingByEmail(email);
                 // console.log(data);
+                setBookings(data?.data || []);
             } catch (error) {
-                console.error('Failed to fetch bookings:', error);
+                console.error('Failed to fetch tutor bookings:', error);
             } finally {
                 setLoading(false);
             }
         };
+
         fetchBookings();
-    }, [userId]);
+    }, [email]);
 
     if (loading) {
         return (
@@ -61,18 +50,20 @@ const StudentBookings = () => {
 
     return (
         <div className="max-w-5xl mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-6 text-center">Your Bookings</h1>
+            <h1 className="text-2xl font-bold mb-6 text-center">
+                Student Booking Requests
+            </h1>
 
             {bookings.length === 0 ? (
                 <p className="text-center text-muted-foreground">
-                    You have no bookings yet.
+                    No booking requests yet.
                 </p>
             ) : (
                 <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead>Subject</TableHead>
-                            <TableHead>Tutor</TableHead>
+                            <TableHead>Student</TableHead>
                             <TableHead>Date</TableHead>
                             <TableHead>Time</TableHead>
                             <TableHead>Status</TableHead>
@@ -82,28 +73,35 @@ const StudentBookings = () => {
                         {bookings.map((booking) => (
                             <TableRow key={booking.id}>
                                 <TableCell>{booking.subject}</TableCell>
+
                                 <TableCell>
-                                    {
-                                        booking.tutor.name.slice(0, 15) + (booking.tutor.name.length > 15 ? '...' : '')
-                                    }
+                                    {booking?.user?.name
+                                        ? booking?.user.name?.slice(0, 15) +
+                                        (booking?.user.name.length > 15 ? '...' : '')
+                                        : 'N/A'}
                                 </TableCell>
-                                <TableCell>{
-                                    new Date(booking.date).toLocaleDateString('en-US', {
+
+                                <TableCell>
+                                    {new Date(booking?.date).toLocaleDateString('en-US', {
                                         year: 'numeric',
                                         month: 'long',
                                         day: 'numeric',
-                                    })
-                                }</TableCell>
-                                <TableCell>
-                                    {formatTimeTo12Hour(booking.selectedSlot.startTime)}
+                                    })}
                                 </TableCell>
+
+                                <TableCell>
+                                    {
+                                        booking?.selectedSlot?.startTime
+                                    }
+                                </TableCell>
+
                                 <TableCell>
                                     <span
                                         className={`px-3 py-1 text-sm rounded-full ${booking.status === 'CONFIRMED'
-                                            ? 'bg-green-100 text-green-600'
-                                            : booking.status === 'PENDING'
-                                                ? 'bg-yellow-100 text-yellow-600'
-                                                : 'bg-red-100 text-red-600'
+                                                ? 'bg-green-100 text-green-600'
+                                                : booking.status === 'PENDING'
+                                                    ? 'bg-yellow-100 text-yellow-600'
+                                                    : 'bg-red-100 text-red-600'
                                             }`}
                                     >
                                         {booking.status}
@@ -118,4 +116,4 @@ const StudentBookings = () => {
     );
 };
 
-export default StudentBookings;
+export default TutorBookings;

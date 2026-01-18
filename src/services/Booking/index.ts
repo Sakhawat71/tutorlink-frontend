@@ -13,7 +13,7 @@ export const createBookingSession = async (payload: IBookingCreateInput) => {
             },
             body: JSON.stringify(payload),
         });
-        revalidateTag("booking-session",{});
+        revalidateTag("booking-session", {});
         return await res.json();
     } catch (error) {
         return error;
@@ -28,9 +28,25 @@ export const myBookings = async (id: string) => {
                 "Content-Type": "application/json",
             },
         });
-        revalidateTag("my-bookings",{});
+        revalidateTag("my-bookings", {});
         return await res.json();
     } catch (error) {
         return error;
     }
-}
+};
+
+
+export const bookingByEmail = async (email: string) => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/booking/email/${email}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        revalidateTag("my-bookings", {});
+        return await res.json();
+    } catch (error) {
+        return error;
+    }
+};
