@@ -11,7 +11,8 @@ const TutorsPage = async () => {
 
     return (
         <div>
-            <BrowseTutors />
+            {/* <BrowseTutors /> */}
+            {/* <BrowseTutorsRedesign /> */}
         </div>
     );
 };
