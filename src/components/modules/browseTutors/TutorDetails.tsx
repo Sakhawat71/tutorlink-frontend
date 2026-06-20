@@ -1,200 +1,391 @@
 "use client";
 
-import { Clock, MapPin, Star, User, BookOpen, Check, GraduationCap } from "lucide-react";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ITutor } from "@/types/tutor.type";
 import Link from "next/link";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
-// import BookSession from "../booking/BookSession";
-// import { useState } from "react";
+import {
+    Star,
+    MapPin,
+    Clock,
+    Check,
+    GraduationCap,
+    BookOpen,
+    // User,
+} from "lucide-react";
+import { ITutor } from "@/types/tutor.type";
+import { COLORS, FONT_SERIF, FONT_MONO, FONTS_IMPORT } from "@/components/shared/Designtokens";
+import { classNum, initials } from "@/components/modules/browseTutors/Tutorcatalog.constants";
 
 interface TutorDetailsProps {
     tutor: ITutor;
 }
 
 export const TutorDetailsComponent = ({ tutor }: TutorDetailsProps) => {
-
-    // const [openBooking, setOpenBooking] = useState(false);
-
     const session = useSession();
     const user = session?.data?.user;
-    // console.log(session?.data?.user);
 
     const rating = 4.9;
     const reviews = 24;
     const responseTime = "2 hours";
-    const backgroundChecked = true;
-    const subjectsTaught = tutor?.subjectList?.length;
+    const primarySubject = tutor.subjectList[0] || "General";
 
-    // Group availability by day
-    const availabilityByDay = tutor?.availability?.reduce((acc, slot) => {
+    const availabilityByDay = tutor.availability.reduce((acc, slot) => {
         if (!acc[slot.day]) acc[slot.day] = [];
-        acc[slot.day].push(`${slot.startTime} - ${slot.endTime}`);
+        acc[slot.day].push(`${slot.startTime} – ${slot.endTime}`);
         return acc;
     }, {} as Record<string, string[]>);
 
-
-
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8">
-            {/* Header Section */}
-            <div className="flex flex-col md:flex-row gap-8">
-                {/* Left Column - Profile Card */}
-                <div className="w-full md:w-1/3 lg:w-1/4">
-                    <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
-                        <div className="flex flex-col items-center">
-                            <div className="relative h-32 w-32 rounded-full overflow-hidden border-4 border-white shadow-lg mb-4">
+        <div style={{ minHeight: "100vh", background: "#FFFDF8" }}>
+            <style>{`
+                ${FONTS_IMPORT}
+                @media (max-width: 900px) {
+                    .tutor-details-grid { flex-direction: column !important; }
+                    .tutor-sidebar { width: 100% !important; position: static !important; }
+                }
+            `}</style>
+
+            {/* Header strip */}
+            <div
+                style={{
+                    background: `linear-gradient(180deg, #FFFDF8 0%, ${COLORS.parchment} 100%)`,
+                    borderBottom: `1px solid ${COLORS.border}`,
+                    padding: "32px 28px",
+                }}
+            >
+                <div
+                    style={{
+                        maxWidth: "1100px",
+                        margin: "0 auto",
+                        fontFamily: FONT_MONO,
+                        fontSize: "11px",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: COLORS.clayDeep,
+                        fontWeight: 700,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                    }}
+                >
+                    <span>{classNum(primarySubject)}</span>
+                    <span style={{ color: COLORS.warmGray }}>·</span>
+                    <span style={{ color: COLORS.warmGray }}>Tutor Profile</span>
+                </div>
+            </div>
+
+            <div
+                style={{
+                    maxWidth: "1100px",
+                    margin: "0 auto",
+                    padding: "40px 28px 80px",
+                    display: "flex",
+                    gap: "40px",
+                }}
+                className="tutor-details-grid"
+            >
+                {/* ---------- LEFT: profile card ---------- */}
+                <aside style={{ width: "300px", flexShrink: 0 }} className="tutor-sidebar">
+                    <div
+                        style={{
+                            position: "sticky",
+                            top: "24px",
+                            background: "#FFFDF8",
+                            border: `1px solid ${COLORS.border}`,
+                            borderRadius: "2px",
+                            padding: "28px 24px",
+                        }}
+                    >
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <div
+                                style={{
+                                    position: "relative",
+                                    width: "104px",
+                                    height: "104px",
+                                    borderRadius: "3px",
+                                    overflow: "hidden",
+                                    background: `linear-gradient(135deg, ${COLORS.ink}, #34507e)`,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginBottom: "16px",
+                                    border: `2px solid ${COLORS.border}`,
+                                }}
+                            >
                                 {tutor.profileImage ? (
                                     <Image
                                         src={tutor.profileImage}
                                         alt={tutor.name}
                                         fill
-                                        className="object-cover"
-                                        sizes="128px"
+                                        sizes="104px"
+                                        style={{ objectFit: "cover" }}
                                     />
                                 ) : (
-                                    <div className="bg-gray-100 h-full w-full flex items-center justify-center">
-                                        <User className="text-gray-400 h-16 w-16" />
-                                    </div>
+                                    <span
+                                        style={{
+                                            fontFamily: FONT_SERIF,
+                                            fontSize: "34px",
+                                            fontWeight: 600,
+                                            color: "#FAF7F0",
+                                        }}
+                                    >
+                                        {initials(tutor.name)}
+                                    </span>
                                 )}
                             </div>
 
-                            <h1 className="text-2xl font-bold text-center">{tutor.name}</h1>
+                            <h1
+                                style={{
+                                    fontFamily: FONT_SERIF,
+                                    fontSize: "22px",
+                                    fontWeight: 700,
+                                    color: COLORS.ink,
+                                    margin: "0 0 8px 0",
+                                    textAlign: "center",
+                                }}
+                            >
+                                {tutor.name}
+                            </h1>
 
-                            <div className="flex items-center mt-2 bg-blue-50 px-3 py-1 rounded-full">
-                                <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
-                                <span className="ml-1 font-medium">
-                                    {rating.toFixed(1)} <span className="text-gray-500">({reviews})</span>
+                            <div
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "5px",
+                                    background: COLORS.parchmentDeep,
+                                    border: `1px solid ${COLORS.border}`,
+                                    borderRadius: "2px",
+                                    padding: "5px 12px",
+                                    marginBottom: "18px",
+                                }}
+                            >
+                                <Star size={13} fill={COLORS.clay} color={COLORS.clay} />
+                                <span style={{ fontSize: "13px", fontWeight: 700, color: COLORS.ink }}>
+                                    {rating.toFixed(1)}
                                 </span>
+                                <span style={{ fontSize: "12px", color: COLORS.warmGray }}>({reviews})</span>
                             </div>
 
-                            <div className="mt-4 text-center">
-                                <div className="text-3xl font-bold text-blue-600">${tutor.hourlyRate}</div>
-                                <div className="text-gray-500">per hour</div>
+                            <div
+                                style={{
+                                    fontFamily: FONT_SERIF,
+                                    fontSize: "30px",
+                                    fontWeight: 700,
+                                    color: COLORS.ink,
+                                    lineHeight: 1,
+                                }}
+                            >
+                                ${tutor.hourlyRate}
+                            </div>
+                            <div style={{ fontSize: "12.5px", color: COLORS.warmGray, marginBottom: "22px" }}>
+                                per hour
                             </div>
 
-
-                            <div className="w-full mt-6 space-y-3">
-                                {
-                                    user && user?.role === "student" ? (
-
-                                        <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12">
-                                            <Link
-                                                href={`/tutors/${tutor.id}/booking`}
-                                            >
-                                                Book a Lesson
-                                            </Link>
-                                        </Button>
-
-                                        // <>
-                                        //     <Button
-                                        //         onClick={() => setOpenBooking(true)}
-                                        //         className="w-full bg-blue-600 hover:bg-blue-700 h-12"
-                                        //     >
-                                        //         Book a Lesson
-                                        //     </Button>
-
-                                        //     {openBooking && (
-                                        //         <BookSession
-                                        //             tutor={tutor}
-                                        //             onClose={() => setOpenBooking(false)}
-                                        //         />
-                                        //     )}
-                                        // </>
-                                    )
-                                        : (
-                                            <p className="text-red-300">Only registered students can book tutors.</p>
-                                        )
-                                }
-                            </div>
-
-
-
-
-                            <div className="w-full mt-6 space-y-3">
-                                <div className="flex items-center text-sm text-gray-600">
-                                    <MapPin className="h-4 w-4 mr-2" />
-                                    {tutor.location === "ONLINE" ? "Online Lessons" : "In-Person Lessons"}
-                                </div>
-                                {tutor.experience && (
-                                    <div className="flex items-center text-sm text-gray-600">
-                                        <Clock className="h-4 w-4 mr-2" />
-                                        {tutor.experience}+ years of experience
-                                    </div>
+                            {/* CTA */}
+                            <div style={{ width: "100%" }}>
+                                {user && user?.role === "student" ? (
+                                    <Link
+                                        href={`/tutors/${tutor.id}/booking`}
+                                        style={{
+                                            display: "block",
+                                            textAlign: "center",
+                                            background: COLORS.clay,
+                                            color: "#FFFDF8",
+                                            borderRadius: "2px",
+                                            padding: "13px",
+                                            fontSize: "14px",
+                                            fontWeight: 600,
+                                            textDecoration: "none",
+                                        }}
+                                    >
+                                        Book a Lesson
+                                    </Link>
+                                ) : (
+                                    <p
+                                        style={{
+                                            fontSize: "12.5px",
+                                            color: COLORS.clayDeep,
+                                            textAlign: "center",
+                                            background: "#FCEFEA",
+                                            border: `1px solid ${COLORS.border}`,
+                                            borderRadius: "2px",
+                                            padding: "10px",
+                                            margin: 0,
+                                        }}
+                                    >
+                                        Only registered students can book tutors.
+                                    </p>
                                 )}
-                                {backgroundChecked && (
-                                    <div className="flex items-center text-sm text-gray-600">
-                                        <Check className="h-4 w-4 mr-2 text-green-500" />
-                                        Background checked
-                                    </div>
-                                )}
-                                <div className="flex items-center text-sm text-gray-600">
-                                    <GraduationCap className="h-4 w-4 mr-2" />
-                                    Teaches {subjectsTaught} subjects
-                                </div>
-                                <div className="flex items-center text-sm text-gray-600">
-                                    <Clock className="h-4 w-4 mr-2" />
-                                    Response time: {responseTime}
-                                </div>
                             </div>
                         </div>
+
+                        {/* stat list */}
+                        <div
+                            style={{
+                                marginTop: "24px",
+                                paddingTop: "20px",
+                                borderTop: `1px solid ${COLORS.border}`,
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "12px",
+                            }}
+                        >
+                            <StatRow
+                                icon={<MapPin size={15} color={COLORS.clayDeep} />}
+                                label={tutor.location === "ONLINE" ? "Online Lessons" : "In-Person Lessons"}
+                            />
+                            {tutor.experience !== undefined && (
+                                <StatRow
+                                    icon={<Clock size={15} color={COLORS.clayDeep} />}
+                                    label={`${tutor.experience}+ years of experience`}
+                                />
+                            )}
+                            <StatRow
+                                icon={<Check size={15} color={COLORS.forest} />}
+                                label="Background checked"
+                            />
+                            <StatRow
+                                icon={<GraduationCap size={15} color={COLORS.clayDeep} />}
+                                label={`Teaches ${tutor.subjectList.length} subject${tutor.subjectList.length === 1 ? "" : "s"}`}
+                            />
+                            <StatRow
+                                icon={<Clock size={15} color={COLORS.clayDeep} />}
+                                label={`Responds in ~${responseTime}`}
+                            />
+                        </div>
                     </div>
-                </div>
+                </aside>
 
-                {/* Right Column - Details */}
-                <div className="w-full md:w-2/3 lg:w-3/4 space-y-8">
-                    {/* About Section */}
-                    <section className="bg-white rounded-lg shadow-md p-6">
-                        <h2 className="text-xl font-bold mb-4">About {tutor.name.split(' ')[0]}</h2>
-                        <p className="text-gray-700 whitespace-pre-line">{tutor.bio}</p>
-                    </section>
+                {/* ---------- RIGHT: details ---------- */}
+                <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: "24px" }}>
+                    <Section title={`About ${tutor.name.split(" ")[0]}`}>
+                        <p style={{ fontSize: "14.5px", lineHeight: 1.7, color: "#4A4438", margin: 0, whiteSpace: "pre-line" }}>
+                            {tutor.bio}
+                        </p>
+                    </Section>
 
-                    {/* Subjects Section */}
-                    <section className="bg-white rounded-lg shadow-md p-6">
-                        <h2 className="text-xl font-bold mb-4">Subjects Taught</h2>
-                        <div className="flex flex-wrap gap-3">
+                    <Section title="Subjects Taught">
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                             {tutor.subjectList.map((subject) => (
                                 <span
                                     key={subject}
-                                    className="bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium"
+                                    style={{
+                                        fontSize: "12.5px",
+                                        fontWeight: 600,
+                                        padding: "6px 14px",
+                                        borderRadius: "2px",
+                                        border: `1px solid ${COLORS.border}`,
+                                        background: COLORS.parchmentDeep,
+                                        color: COLORS.ink,
+                                    }}
                                 >
                                     {subject}
                                 </span>
                             ))}
                         </div>
-                    </section>
+                    </Section>
 
-                    {/* Availability Section */}
-                    <section className="bg-white rounded-lg shadow-md p-6">
-                        <h2 className="text-xl font-bold mb-4">Availability</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {Object.entries(availabilityByDay).map(([day, times]) => (
-                                <div key={day} className="border rounded-lg p-4">
-                                    <h3 className="font-medium text-lg mb-2">{day}</h3>
-                                    <ul className="space-y-2">
-                                        {times.map((time, i) => (
-                                            <li key={i} className="flex items-center">
-                                                <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                                                <span>{time}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
+                    <Section title="Availability">
+                        {Object.keys(availabilityByDay).length === 0 ? (
+                            <p style={{ fontSize: "14px", color: COLORS.warmGray, margin: 0 }}>
+                                No availability slots have been set yet.
+                            </p>
+                        ) : (
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))",
+                                    gap: "14px",
+                                }}
+                            >
+                                {Object.entries(availabilityByDay).map(([day, times]) => (
+                                    <div
+                                        key={day}
+                                        style={{
+                                            border: `1px solid ${COLORS.border}`,
+                                            borderRadius: "2px",
+                                            padding: "14px 16px",
+                                            background: COLORS.parchment,
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                fontFamily: FONT_SERIF,
+                                                fontSize: "14.5px",
+                                                fontWeight: 600,
+                                                color: COLORS.ink,
+                                                marginBottom: "8px",
+                                            }}
+                                        >
+                                            {day}
+                                        </div>
+                                        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "5px" }}>
+                                            {times.map((time, i) => (
+                                                <li
+                                                    key={i}
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        gap: "6px",
+                                                        fontSize: "12.5px",
+                                                        color: COLORS.forest,
+                                                        fontFamily: FONT_MONO,
+                                                    }}
+                                                >
+                                                    <Clock size={12} />
+                                                    {time}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </Section>
 
-                    {/* Reviews Section (Placeholder) */}
-                    <section className="bg-white rounded-lg shadow-md p-6">
-                        <h2 className="text-xl font-bold mb-4">Reviews</h2>
-                        <div className="text-center py-8 text-gray-500">
-                            <BookOpen className="h-12 w-12 mx-auto text-gray-300 mb-4" />
-                            <p>No reviews yet</p>
+                    <Section title="Reviews">
+                        <div style={{ textAlign: "center", padding: "36px 0" }}>
+                            <BookOpen size={36} color={COLORS.border} style={{ marginBottom: "12px" }} />
+                            <p style={{ fontSize: "14px", color: COLORS.warmGray, margin: 0 }}>No reviews yet</p>
                         </div>
-                    </section>
+                    </Section>
                 </div>
             </div>
         </div>
     );
 };
+
+function StatRow({ icon, label }: { icon: React.ReactNode; label: string }) {
+    return (
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#4A4438" }}>
+            {icon}
+            <span>{label}</span>
+        </div>
+    );
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+    return (
+        <section
+            style={{
+                background: "#FFFDF8",
+                border: `1px solid ${COLORS.border}`,
+                borderRadius: "2px",
+                padding: "26px 28px",
+            }}
+        >
+            <h2
+                style={{
+                    fontFamily: FONT_SERIF,
+                    fontSize: "18px",
+                    fontWeight: 700,
+                    color: COLORS.ink,
+                    margin: "0 0 16px 0",
+                }}
+            >
+                {title}
+            </h2>
+            {children}
+        </section>
+    );
+}
