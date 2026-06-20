@@ -14,6 +14,7 @@ export interface IBookingCreateInput {
 }
 
 export interface Booking {
+    user: any;
     id: string;
     tutor: {
         name: string;

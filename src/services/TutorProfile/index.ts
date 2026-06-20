@@ -61,7 +61,6 @@ export const getTutorProfiles = async ({
             cache: "no-store",
         });
         revalidateTag("tutor-profile", {});
-        console.log( res);
         return await res.json();
     } catch (error) {
         return error;
