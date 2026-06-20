@@ -1,59 +1,177 @@
 import Link from "next/link";
 import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { COLORS, FONT_SERIF, FONT_MONO } from "@/components/shared/Designtokens";
+
+const EXPLORE_LINKS = [
+    { label: "Home", href: "/" },
+    { label: "Browse Tutors", href: "/tutors" },
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "About Us", href: "/about" },
+];
+
+const SUPPORT_LINKS = [
+    { label: "FAQ", href: "/faq" },
+    { label: "Contact Us", href: "/contact" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms & Conditions", href: "/terms" },
+];
+
+const SOCIALS = [
+    { Icon: FaFacebook, href: "https://facebook.com", label: "Facebook" },
+    { Icon: FaTwitter, href: "https://twitter.com", label: "Twitter" },
+    { Icon: FaGithub, href: "https://github.com/Sakhawat71", label: "GitHub" },
+    { Icon: FaLinkedin, href: "https://linkedin.com/in/s3h", label: "LinkedIn" },
+];
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-900 text-gray-300 pt-10 pb-6 px-4">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
-                {/* Logo & Description */}
+        <footer
+            style={{
+                background: COLORS.ink,
+                color: "#D9DEE8",
+                paddingTop: "56px",
+            }}
+        >
+            <div
+                style={{
+                    maxWidth: "1240px",
+                    margin: "0 auto",
+                    padding: "0 28px 40px",
+                    display: "grid",
+                    gridTemplateColumns: "1.4fr 1fr 1fr 1fr",
+                    gap: "40px",
+                }}
+                className="footer-grid"
+            >
+                {/* Brand */}
                 <div>
-                    <h2 className="text-2xl font-bold text-white">TutorLink</h2>
-                    <p className="mt-2 text-sm">
-                        Connecting students with expert tutors for personalized learning. Empower your education with ease and trust.
+                    <div
+                        style={{
+                            fontFamily: FONT_MONO,
+                            fontSize: "10px",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: COLORS.clay,
+                            fontWeight: 700,
+                            marginBottom: "8px",
+                        }}
+                    >
+                        The Catalog
+                    </div>
+                    <h2
+                        style={{
+                            fontFamily: FONT_SERIF,
+                            fontSize: "26px",
+                            fontWeight: 700,
+                            color: "#FFFDF8",
+                            margin: "0 0 12px 0",
+                        }}
+                    >
+                        TutorLink
+                    </h2>
+                    <p style={{ fontSize: "13.5px", lineHeight: 1.6, color: "#AEB6C4", maxWidth: "320px", margin: 0 }}>
+                        Connecting students with expert tutors for personalized learning — browse the catalog,
+                        find your match, and book with confidence.
                     </p>
                 </div>
 
-                {/* Explore Links */}
-                <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">Explore</h3>
-                    <ul className="space-y-2 text-sm">
-                        <li><Link href="/">Home</Link></li>
-                        <li><Link href="/tutors">Find Tutors</Link></li>
-                        <li><Link href="/dashboard">Dashboard</Link></li>
-                        <li><Link href="/about">About</Link></li>
-                    </ul>
-                </div>
+                {/* Explore */}
+                <FooterColumn title="Explore" links={EXPLORE_LINKS} />
+                {/* Support */}
+                <FooterColumn title="Support" links={SUPPORT_LINKS} />
 
-                {/* Support Links */}
+                {/* Social */}
                 <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">Support</h3>
-                    <ul className="space-y-2 text-sm">
-                        <li><Link href="/help">Help Center</Link></li>
-                        <li><Link href="/contact">Contact Us</Link></li>
-                        <li><Link href="/privacy">Privacy Policy</Link></li>
-                        <li><Link href="/terms">Terms & Conditions</Link></li>
-                    </ul>
-                </div>
-
-                {/* Social Media */}
-                <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">Follow Us</h3>
-                    <div className="flex space-x-4 mt-2">
-                        <Link href="https://facebook.com" target="_blank"><FaFacebook size={20} /></Link>
-                        <Link href="https://twitter.com" target="_blank"><FaTwitter size={20} /></Link>
-                        <Link href="https://github.com/Sakhawat71" target="_blank"><FaGithub size={20} /></Link>
-                        <Link href="https://linkedin.com/in/s3h" target="_blank"><FaLinkedin size={20} /></Link>
+                    <h3
+                        style={{
+                            fontFamily: FONT_SERIF,
+                            fontSize: "14px",
+                            fontWeight: 600,
+                            color: "#FFFDF8",
+                            marginBottom: "16px",
+                        }}
+                    >
+                        Follow Us
+                    </h3>
+                    <div style={{ display: "flex", gap: "14px" }}>
+                        {SOCIALS.map(({ Icon, href, label }) => (
+                            <Link
+                                key={label}
+                                href={href}
+                                target="_blank"
+                                aria-label={label}
+                                style={{
+                                    color: "#AEB6C4",
+                                    display: "flex",
+                                    width: "32px",
+                                    height: "32px",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    borderRadius: "2px",
+                                    border: "1px solid rgba(255,255,255,0.12)",
+                                    transition: "all 150ms",
+                                }}
+                            >
+                                <Icon size={15} />
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>
 
-            {/* Divider */}
-            <div className="border-t border-gray-700 mt-10 pt-4 text-center text-sm text-gray-400">
+            <div
+                style={{
+                    borderTop: "1px solid rgba(255,255,255,0.1)",
+                    padding: "20px 28px",
+                    textAlign: "center",
+                    fontSize: "12.5px",
+                    color: "#8893A6",
+                    fontFamily: FONT_MONO,
+                }}
+            >
                 © {new Date().getFullYear()} TutorLink — All rights reserved.
             </div>
+
+            <style>{`
+                @media (max-width: 860px) {
+                    .footer-grid { grid-template-columns: 1fr 1fr !important; }
+                }
+                @media (max-width: 540px) {
+                    .footer-grid { grid-template-columns: 1fr !important; }
+                }
+            `}</style>
         </footer>
     );
 };
+
+function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+    return (
+        <div>
+            <h3
+                style={{
+                    fontFamily: FONT_SERIF,
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    color: "#FFFDF8",
+                    marginBottom: "16px",
+                }}
+            >
+                {title}
+            </h3>
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+                {links.map((l) => (
+                    <li key={l.href}>
+                        <Link
+                            href={l.href}
+                            style={{ fontSize: "13.5px", color: "#AEB6C4", textDecoration: "none" }}
+                        >
+                            {l.label}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
 
 export default Footer;

@@ -1,7 +1,10 @@
 "use client";
-import { Button } from "../ui/button";
-import { LogOut, Menu, X } from "lucide-react";
+
+import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
+import { LogOut, Menu, X } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,149 +14,254 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
-// import { Skeleton } from "../ui/skeleton";
-import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
+import { COLORS, FONT_SERIF, FONT_MONO } from "@/components/shared/Designtokens";
+
+const NAV_LINKS = [
+    { label: "Home", href: "/" },
+    { label: "Browse Tutors", href: "/tutors" },
+    { label: "About Us", href: "/about" },
+    { label: "FAQ", href: "/faq" },
+];
 
 export default function Navbar() {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
     const { data: session } = useSession();
     const userRole = session?.user?.role || null;
     const pathname = usePathname();
 
-
     return (
-        <header className="border-b w-full bg-white shadow-sm">
-            <div className="container mx-auto h-16 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <header
+            style={{
+                position: "sticky",
+                top: 0,
+                zIndex: 40,
+                background: COLORS.cream,
+                borderBottom: `1px solid ${COLORS.border}`,
+            }}
+        >
+            <div
+                style={{
+                    maxWidth: "1240px",
+                    margin: "0 auto",
+                    padding: "0 28px",
+                    height: "68px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                }}
+            >
                 {/* Logo */}
-                <Link href="/" className="text-2xl font-extrabold tracking-tight text-indigo-600 hover:text-indigo-700 transition-colors">
-                    TutorLink
+                <Link
+                    href="/"
+                    style={{
+                        display: "flex",
+                        alignItems: "baseline",
+                        gap: "8px",
+                        textDecoration: "none",
+                    }}
+                >
+                    <span
+                        style={{
+                            fontFamily: FONT_SERIF,
+                            fontWeight: 700,
+                            fontSize: "22px",
+                            color: COLORS.ink,
+                            letterSpacing: "-0.01em",
+                        }}
+                    >
+                        TutorLink
+                    </span>
+                    <span
+                        style={{
+                            fontFamily: FONT_MONO,
+                            fontSize: "10px",
+                            letterSpacing: "0.08em",
+                            textTransform: "uppercase",
+                            color: COLORS.clay,
+                            fontWeight: 700,
+                            display: "none",
+                        }}
+                        className="logo-tag"
+                    >
+                        Catalog
+                    </span>
                 </Link>
 
-                {/* Right Section */}
-                <div className="flex items-center gap-4">
-                    {/* Hamburger Menu for Mobile */}
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="md:hidden text-gray-600 hover:text-indigo-600 transition-colors"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    >
-                        {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                    </Button>
+                {/* Desktop nav */}
+                <nav
+                    className="nav-desktop"
+                    style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
+                    {NAV_LINKS.map((link) => {
+                        const active = pathname === link.href;
+                        return (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                style={{
+                                    fontSize: "14px",
+                                    fontWeight: active ? 700 : 500,
+                                    color: active ? COLORS.clayDeep : COLORS.ink,
+                                    padding: "8px 14px",
+                                    borderRadius: "2px",
+                                    textDecoration: "none",
+                                    transition: "color 150ms",
+                                    position: "relative",
+                                }}
+                            >
+                                {link.label}
+                                {active && (
+                                    <span
+                                        style={{
+                                            position: "absolute",
+                                            left: "14px",
+                                            right: "14px",
+                                            bottom: "2px",
+                                            height: "2px",
+                                            background: COLORS.clay,
+                                            borderRadius: "1px",
+                                        }}
+                                    />
+                                )}
+                            </Link>
+                        );
+                    })}
+                </nav>
 
-                    {/* Navigation */}
-                    <nav
-                        className={cn(
-                            "md:flex items-center gap-6",
-                            isMobileMenuOpen
-                                ? "flex flex-col absolute top-16 left-0 w-full bg-white shadow-lg p-6 z-20 border-b md:border-0"
-                                : "hidden md:flex-row"
-                        )}
-                    >
-                        <Link href="/">
-                            <Button
-                                variant="ghost"
-                                className={cn(
-                                    "text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors w-full md:w-auto text-left cursor-pointer",
-                                    pathname === "/" && "font-bold text-indigo-600" // Bold and colored when active
-                                )}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                Home
-                            </Button>
-                        </Link>
-                        <Link href="/tutors">
-                            <Button
-                                variant="ghost"
-                                className={cn(
-                                    "text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors w-full md:w-auto text-left cursor-pointer",
-                                    pathname === "/tutors" && "font-bold text-indigo-600"
-                                )}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                Browse Tutors
-                            </Button>
-                        </Link>
-                        <Link href="/about">
-                            <Button
-                                variant="ghost"
-                                className={cn(
-                                    "text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors w-full md:w-auto text-left cursor-pointer",
-                                    pathname === "/about" && "font-bold text-indigo-600"
-                                )}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                About Us
-                            </Button>
-                        </Link>
-                        <Link href="/faq">
-                            <Button
-                                variant="ghost"
-                                className={cn(
-                                    "text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors w-full md:w-auto text-left cursor-pointer",
-                                    pathname === "/faq" && "font-bold text-indigo-600"
-                                )}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                FAQ
-                            </Button>
-                        </Link>
-                        
-                    </nav>
-
-                    {/* User Authentication Section */}
+                {/* Right side */}
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                     {session ? (
                         <DropdownMenu>
-                            <DropdownMenuTrigger className="focus:outline-none">
-                                <Avatar className="h-10 w-10 ring-2 ring-indigo-200 hover:ring-indigo-400 transition-all">
+                            <DropdownMenuTrigger style={{ outline: "none" }}>
+                                <Avatar
+                                    style={{
+                                        height: "38px",
+                                        width: "38px",
+                                        border: `2px solid ${COLORS.border}`,
+                                    }}
+                                >
                                     <AvatarImage src="https://i.ibb.co/4K27t1f/user.png" />
-                                    <AvatarFallback className="bg-indigo-100 text-indigo-600">
+                                    <AvatarFallback
+                                        style={{
+                                            background: COLORS.ink,
+                                            color: COLORS.cream,
+                                            fontFamily: FONT_SERIF,
+                                            fontWeight: 600,
+                                        }}
+                                    >
                                         {session.user?.name?.charAt(0) || "U"}
                                     </AvatarFallback>
                                 </Avatar>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-56 p-2 shadow-lg rounded-lg border border-gray-100">
-                                <DropdownMenuLabel className="text-sm font-medium text-gray-900">
+                            <DropdownMenuContent
+                                style={{
+                                    width: "220px",
+                                    border: `1px solid ${COLORS.border}`,
+                                    borderRadius: "2px",
+                                }}
+                            >
+                                <DropdownMenuLabel
+                                    style={{ fontFamily: FONT_SERIF, fontSize: "14px", color: COLORS.ink }}
+                                >
                                     {session.user?.name || "My Account"}
                                 </DropdownMenuLabel>
-                                <DropdownMenuSeparator className="my-1" />
+                                <DropdownMenuSeparator />
                                 <DropdownMenuItem asChild>
                                     <Link
                                         href={`/dashboard/${userRole}`}
-                                        className={cn(
-                                            "flex items-center px-3 py-2 text-gray-900 hover:text-indigo-600 rounded-md cursor-pointer transition-colors",
-                                            pathname === `/dashboard/${userRole}` && "font-bold text-indigo-600"
-                                        )}
+                                        style={{ fontSize: "13.5px", cursor: "pointer" }}
                                     >
                                         Dashboard
                                     </Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuSeparator className="my-1" />
+                                <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                     onClick={() => signOut()}
-                                    className="flex items-center px-3 py-2 text-red-600 hover:bg-red-50 rounded-md cursor-pointer transition-colors font-semibold"
+                                    style={{ color: COLORS.clayDeep, fontSize: "13.5px", cursor: "pointer" }}
                                 >
-                                    <LogOut className="mr-2 h-4 w-4" />
-                                    <span>Logout</span>
+                                    <LogOut style={{ marginRight: "8px", height: "14px", width: "14px" }} />
+                                    Logout
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : (
-                        <Link href="/login">
-                            <Button
-                                variant="outline"
-                                className="rounded-full px-4 py-2 text-sm font-medium text-indigo-600 border-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                Login
-                            </Button>
+                        <Link
+                            href="/login"
+                            style={{
+                                fontSize: "13.5px",
+                                fontWeight: 600,
+                                color: COLORS.ink,
+                                border: `1.5px solid ${COLORS.ink}`,
+                                borderRadius: "2px",
+                                padding: "8px 18px",
+                                textDecoration: "none",
+                            }}
+                        >
+                            Login
                         </Link>
                     )}
+
+                    {/* Mobile toggle */}
+                    <button
+                        type="button"
+                        className="nav-mobile-toggle"
+                        onClick={() => setMobileOpen((v) => !v)}
+                        style={{
+                            display: "none",
+                            background: "none",
+                            border: "none",
+                            color: COLORS.ink,
+                            cursor: "pointer",
+                            padding: "4px",
+                        }}
+                        aria-label="Toggle menu"
+                    >
+                        {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+                    </button>
                 </div>
             </div>
+
+            {/* Mobile menu */}
+            {mobileOpen && (
+                <nav
+                    style={{
+                        borderTop: `1px solid ${COLORS.border}`,
+                        background: COLORS.cream,
+                        padding: "12px 28px 20px",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "4px",
+                    }}
+                >
+                    {NAV_LINKS.map((link) => {
+                        const active = pathname === link.href;
+                        return (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={() => setMobileOpen(false)}
+                                style={{
+                                    fontSize: "15px",
+                                    fontWeight: active ? 700 : 500,
+                                    color: active ? COLORS.clayDeep : COLORS.ink,
+                                    padding: "12px 4px",
+                                    borderBottom: `1px solid ${COLORS.border}`,
+                                    textDecoration: "none",
+                                }}
+                            >
+                                {link.label}
+                            </Link>
+                        );
+                    })}
+                </nav>
+            )}
+
+            <style>{`
+                @media (max-width: 860px) {
+                    .nav-desktop { display: none !important; }
+                    .nav-mobile-toggle { display: flex !important; }
+                }
+            `}</style>
         </header>
     );
 }
