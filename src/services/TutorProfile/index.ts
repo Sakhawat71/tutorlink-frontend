@@ -21,42 +21,42 @@ export const createTutorProfile = async (payload: any) => {
 };
 
 
-// export const getTutorProfiles = async (searchTerm : string) => {
-//     // console.log(searchTerm);
-//     try {
-//         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/tutor?searchTerm=${searchTerm}`, {
-//             method: "GET",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             cache: "no-store"
-//         });
-//         revalidateTag("tutor-profile",{});
-//         return await res.json();
-//     } catch (error) {
-//         return error;
-//     }
-// };
-
-
-export const getTutorProfiles = async (searchTerm: string, page: number = 1, limit: number = 9) => {
+export const getTutorProfiles = async (searchTerm : string) => {
+    // console.log(searchTerm);
     try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/api/tutor?searchTerm=${searchTerm}&page=${page}&limit=${limit}`,
-            {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                cache: "no-store"
-            }
-        );
-        revalidateTag("tutor-profile", {});
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/tutor?searchTerm=${searchTerm}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            cache: "no-store"
+        });
+        revalidateTag("tutor-profile",{});
         return await res.json();
     } catch (error) {
         return error;
     }
 };
+
+
+// export const getTutorProfiles = async (searchTerm: string, page: number = 1, limit: number = 9) => {
+//     try {
+//         const res = await fetch(
+//             `${process.env.NEXT_PUBLIC_BASE_API}/api/tutor?searchTerm=${searchTerm}&page=${page}&limit=${limit}`,
+//             {
+//                 method: "GET",
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                 },
+//                 cache: "no-store"
+//             }
+//         );
+//         revalidateTag("tutor-profile", {});
+//         return await res.json();
+//     } catch (error) {
+//         return error;
+//     }
+// };
 
 
 export const getTutorDetails = async (id: string) => {
