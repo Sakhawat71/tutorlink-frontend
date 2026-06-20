@@ -1,43 +1,73 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import { CalendarClock } from "lucide-react";
+import { COLORS, FONT_SERIF, FONT_MONO } from "@/components/shared/Designtokens";
 
 const PowerUpSection = () => {
     return (
-        <section className="relative bg-[#f9fafb] py-24 overflow-hidden">
-            {/* Left animated image */}
-            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/4 hidden lg:block animate-float">
-                <Image
-                    src="https://i.ibb.co/WvsHywPQ/customer-support.png"
-                    alt="Schedule illustration"
-                    width={300}
-                    height={300}
-                />
-            </div>
-
-            {/* Right animated image */}
-            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/5 hidden lg:block animate-float-reverse">
-                <Image
-                    src="https://i.ibb.co/QFLjwbKh/cloud-data-processing.png"
-                    alt="Calendar icon"
-                    width={300}
-                    height={300}
-                />
-            </div>
-
-            {/* Center content */}
-            <div className="relative z-10 container mx-auto px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        <section
+            style={{
+                background: "#FFFDF8",
+                padding: "72px 28px",
+                borderTop: `1px solid ${COLORS.border}`,
+            }}
+        >
+            <div style={{ maxWidth: "720px", margin: "0 auto", textAlign: "center" }}>
+                <div
+                    style={{
+                        width: "56px",
+                        height: "56px",
+                        margin: "0 auto 22px",
+                        borderRadius: "2px",
+                        background: COLORS.ink,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: COLORS.parchment,
+                    }}
+                >
+                    <CalendarClock size={26} />
+                </div>
+                <div
+                    style={{
+                        fontFamily: FONT_MONO,
+                        fontSize: "11px",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: COLORS.clayDeep,
+                        fontWeight: 700,
+                        marginBottom: "12px",
+                    }}
+                >
+                    Scheduling, simplified
+                </div>
+                <h2
+                    style={{
+                        fontFamily: FONT_SERIF,
+                        fontSize: "clamp(26px, 3.2vw, 36px)",
+                        fontWeight: 700,
+                        color: COLORS.ink,
+                        margin: "0 0 16px 0",
+                    }}
+                >
                     Power up your scheduling
                 </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+                <p style={{ fontSize: "15px", color: COLORS.warmGray, lineHeight: 1.6, margin: "0 0 32px 0" }}>
                     Let students book with you instantly. Make scheduling seamless and stress-free with TutorLink.
                 </p>
                 <Link
                     href="/tutors"
-                    className="inline-block bg-blue-600 text-white text-base font-semibold px-6 py-3 rounded-md hover:bg-blue-700 transition"
+                    style={{
+                        display: "inline-block",
+                        background: COLORS.clay,
+                        color: "#FFFDF8",
+                        borderRadius: "2px",
+                        padding: "13px 30px",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        textDecoration: "none",
+                    }}
                 >
                     Get Started
                 </Link>

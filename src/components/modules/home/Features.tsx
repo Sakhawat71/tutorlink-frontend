@@ -1,71 +1,138 @@
-import { Card, CardContent } from '@/components/ui/card';
-import Image from 'next/image';
-import React from 'react';
-import payment from '@/assets/icons/secure-payment.png';
-import verified from '@/assets/icons/identify.png';
-import tutors from '@/assets/icons/virtual-class.png';
+"use client";
+
+import { Search, ShieldCheck, CreditCard } from "lucide-react";
+import { COLORS, FONT_SERIF, FONT_MONO } from "@/components/shared/Designtokens";
+
+const FEATURES = [
+    {
+        icon: Search,
+        num: "01",
+        title: "Find Tutors Fast",
+        desc: "Browse and book tutors in minutes with subject, schedule, and price filters built for real decisions.",
+    },
+    {
+        icon: CreditCard,
+        num: "02",
+        title: "Secure Payments",
+        desc: "Pay confidently with our encrypted and reliable payment system — every booking is protected end to end.",
+    },
+    {
+        icon: ShieldCheck,
+        num: "03",
+        title: "Verified Profiles",
+        desc: "Every tutor listed in the catalog is vetted for quality, ensuring trustworthy, qualified instruction.",
+    },
+];
 
 const Features = () => {
     return (
-        <section className="py-10 sm:py-12 md:py-16 bg-white">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10">
-                    Why Choose TutorLink?
+        <section style={{ background: "#FFFDF8", padding: "72px 28px" }}>
+            <div style={{ maxWidth: "1240px", margin: "0 auto" }}>
+                <div
+                    style={{
+                        fontFamily: FONT_MONO,
+                        fontSize: "11px",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: COLORS.clayDeep,
+                        fontWeight: 700,
+                        marginBottom: "10px",
+                        textAlign: "center",
+                    }}
+                >
+                    Why TutorLink
+                </div>
+                <h2
+                    style={{
+                        fontFamily: FONT_SERIF,
+                        fontSize: "clamp(26px, 3vw, 36px)",
+                        fontWeight: 700,
+                        color: COLORS.ink,
+                        textAlign: "center",
+                        margin: "0 0 48px 0",
+                    }}
+                >
+                    Built for finding the right fit
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                    <Card className="text-center p-4 sm:p-6">
 
-                        <div className='flex justify-center'>
-                            <Image
-                                src={tutors}
-                                alt='icons'
-                                width={60}
-                                height={60}
-                            />
-                        </div>
-                        <CardContent>
-                            <h3 className="text-lg sm:text-xl font-semibold mb-2">Find Tutors Fast</h3>
-                            <p className="text-sm sm:text-base text-gray-600">
-                                Browse and book tutors in minutes with our easy-to-use platform.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="text-center p-4 sm:p-6">
-                        <div className='flex justify-center'>
-                            <Image
-                                src={payment}
-                                alt='icons'
-                                width={60}
-                                height={60}
-                            />
-                        </div>
-                        <CardContent>
-                            <h3 className="text-lg sm:text-xl font-semibold mb-2">Secure Payments</h3>
-                            <p className="text-sm sm:text-base text-gray-600">
-                                Pay confidently with our encrypted and reliable payment system.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="text-center p-4 sm:p-6">
-                        <div className='flex justify-center'>
-                            <Image
-                                src={verified}
-                                alt='icons'
-                                width={60}
-                                height={60}
-                            />
-                        </div>
-                        <CardContent>
-                            <h3 className="text-lg sm:text-xl font-semibold mb-2">Verified Profiles</h3>
-                            <p className="text-sm sm:text-base text-gray-600">
-                                All tutors are vetted to ensure quality and trustworthiness.
-                            </p>
-                        </CardContent>
-                    </Card>
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, 1fr)",
+                        gap: "24px",
+                    }}
+                    className="features-grid"
+                >
+                    {FEATURES.map((f) => {
+                        const Icon = f.icon;
+                        return (
+                            <div
+                                key={f.num}
+                                style={{
+                                    border: `1px solid ${COLORS.border}`,
+                                    borderRadius: "2px",
+                                    padding: "32px 26px",
+                                    background: COLORS.parchment,
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        marginBottom: "20px",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: "44px",
+                                            height: "44px",
+                                            borderRadius: "2px",
+                                            background: COLORS.ink,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            color: COLORS.parchment,
+                                        }}
+                                    >
+                                        <Icon size={20} />
+                                    </div>
+                                    <span
+                                        style={{
+                                            fontFamily: FONT_MONO,
+                                            fontSize: "13px",
+                                            color: COLORS.warmGray,
+                                            fontWeight: 700,
+                                        }}
+                                    >
+                                        {f.num}
+                                    </span>
+                                </div>
+                                <h3
+                                    style={{
+                                        fontFamily: FONT_SERIF,
+                                        fontSize: "19px",
+                                        fontWeight: 600,
+                                        color: COLORS.ink,
+                                        margin: "0 0 10px 0",
+                                    }}
+                                >
+                                    {f.title}
+                                </h3>
+                                <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#4A4438", margin: 0 }}>
+                                    {f.desc}
+                                </p>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
+
+            <style>{`
+                @media (max-width: 860px) {
+                    .features-grid { grid-template-columns: 1fr !important; }
+                }
+            `}</style>
         </section>
     );
 };
