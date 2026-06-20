@@ -41,7 +41,7 @@ export const getTutorProfiles = async ({
     location = null,
     subjects = [],
     days = [],
-    maxPrice,
+    // maxPrice,
 }: GetTutorProfilesParams) => {
     try {
         const params = new URLSearchParams();
@@ -51,7 +51,7 @@ export const getTutorProfiles = async ({
         if (location) params.set("location", location);
         if (subjects.length > 0) params.set("subjects", subjects.join(","));
         if (days.length > 0) params.set("days", days.join(","));
-        if (maxPrice) params.set("maxPrice", String(maxPrice));
+        // if (maxPrice) params.set("maxPrice", String(maxPrice));
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/tutor?${params.toString()}`, {
             method: "GET",
@@ -61,6 +61,7 @@ export const getTutorProfiles = async ({
             cache: "no-store",
         });
         revalidateTag("tutor-profile", {});
+        console.log( res);
         return await res.json();
     } catch (error) {
         return error;

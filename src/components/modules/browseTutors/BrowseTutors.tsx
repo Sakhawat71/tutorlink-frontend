@@ -45,7 +45,15 @@ const BrowseTutors = () => {
         async function fetchData() {
             setIsLoading(true);
             try {
-                const res = await getTutorProfiles(searchTerm);
+                const res = await getTutorProfiles({
+                    searchTerm,
+                    page,
+                    limit: PAGE_LIMIT,
+                    location: filters.location,
+                    subjects: filters.subjects,
+                    days: filters.days,
+                    // maxPrice: filters.maxPrice,
+                });
                 if (cancelled) return;
                 setTutors(res?.data?.result ?? []);
                 setMeta(

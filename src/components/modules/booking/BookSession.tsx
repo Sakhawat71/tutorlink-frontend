@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Clock, MapPin, Calendar as CalendarIcon, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+// import "react-calendar/dist/Calendar.css";
 import { createBookingSession } from "@/services/Booking";
 import { toast } from "sonner";
 import { HashLoader } from "react-spinners";
