@@ -1,5 +1,5 @@
-// import BrowseTutors from '@/components/modules/browseTutors/BrowseTutors';
-import BrowseTutorsRedesign from '@/components/modules/browseTutors/Browsetutorsredesign';
+import BrowseTutors from '@/components/modules/browseTutors/BrowseTutors';
+// import BrowseTutorsRedesign from '@/components/modules/browseTutors/Browsetutorsredesign';
 import { Metadata } from 'next';
 import React from 'react';
 
@@ -12,8 +12,8 @@ const TutorsPage = async () => {
 
     return (
         <div>
-            {/* <BrowseTutors /> */}
-            <BrowseTutorsRedesign />
+            <BrowseTutors />
+            {/* <BrowseTutorsRedesign /> */}
         </div>
     );
 };
